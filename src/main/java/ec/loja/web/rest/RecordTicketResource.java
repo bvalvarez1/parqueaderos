@@ -151,8 +151,8 @@ public class RecordTicketResource {
         InstitutionDTO institution = institutionService.findOne(recordTicketDTO.getInstitution().getId()).get();
         PlaceDTO placedto = placeService.getAvailablePlace(institution.getId(), availablePlace.getId()).get();
 
-        System.out.println("=====......." + institution);
-        String ticketSerial = institutionService.serialTicket(institution.getSequencename());
+        System.out.println("=====......."+institution);
+        String ticketSerial = institutionService.serialTicket(institution.getSequencename() );
 
         ticketSerial = institution.getAcronym() + ticketSerial;
 
@@ -235,7 +235,7 @@ public class RecordTicketResource {
 
         subtotal = subtotal.add(totalDay).add(totalHour).add(totalMinutes);
         subtotal = subtotal.setScale(2, RoundingMode.HALF_UP);
-        taxes = subtotal.divide(iva, 2, RoundingMode.HALF_UP);
+        taxes = subtotal.divide(iva,2, RoundingMode.HALF_UP);
         taxes = taxes.setScale(2, RoundingMode.HALF_UP);
 
         BigDecimal total = subtotal.add(taxes);
@@ -251,7 +251,7 @@ public class RecordTicketResource {
     }
 
     @PostMapping("/record-tickets/payTicket")
-    public ResponseEntity<RecordTicketDTO> payTicket(@Valid @RequestBody RecordTicketDTO request) {
+    public ResponseEntity<RecordTicketDTO> payTicket(@Valid @RequestBody  RecordTicketDTO request) {
         log.debug("REST request to payTicket RecordTicket : {}", request);
 
         if (request.getId() == null) {
@@ -264,16 +264,16 @@ public class RecordTicketResource {
 
         final User user = isUser.get();
         Optional<ItemCatalogueDTO> payedStatus = itemCatalogService.findByCodeAndCatalog(PAYED_STATUS, TICKET_STATUS);
-
-        //al ticket fijarle los valores de cobrador, fecha de cobro
-        request.setCollector(userService.converttoDTO(user).get());
+        
+        //al ticket fijarle los valores de cobrador, fecha de cobro 
+        request.setCollector(userService.converttoDTO(user).get()); 
         request.setEndDate(Instant.now());
         request.setStatus(payedStatus.get());
-
+        
         RecordTicketDTO result = recordTicketService.save(request);
 
         //liberar el lugar o place ocupado
-        Optional<PlaceDTO> placedto = placeService.findOne(request.getPlaceid().getId());
+        Optional<PlaceDTO> placedto  = placeService.findOne(request.getPlaceid().getId());
         PlaceDTO placeDTO = placedto.get();
         Optional<ItemCatalogueDTO> freeStatus = itemCatalogService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE);
         placeDTO.setStatus(freeStatus.get());
@@ -398,6 +398,8 @@ public class RecordTicketResource {
             .build();
     }
 
+
+    
     @PatchMapping(value = "/record-tickets/cancel/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<RecordTicketDTO> cancelRecordTicket(
         @PathVariable(value = "id", required = false) final Long id,
@@ -407,7 +409,7 @@ public class RecordTicketResource {
         if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-
+         
         if (!recordTicketRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
@@ -419,7 +421,7 @@ public class RecordTicketResource {
         Optional<RecordTicketDTO> result = recordTicketService.partialUpdate(recordDB);
 
         //desocupar el espacio de parqueamiento
-        PlaceDTO placedto = placeService.findOne(recordDB.getPlaceid().getId()).get();
+        PlaceDTO placedto  = placeService.findOne(recordDB.getPlaceid().getId()).get();
         Optional<ItemCatalogueDTO> freeStatus = itemCatalogService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE);
         placedto.setStatus(freeStatus.get());
         placeService.save(placedto);
