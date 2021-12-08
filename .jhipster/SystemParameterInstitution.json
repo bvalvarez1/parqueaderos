@@ -1,0 +1,47 @@
+{
+  "name": "SystemParameterInstitution",
+  "fields": [
+    {
+      "fieldName": "value",
+      "fieldType": "String",
+      "javadoc": "valor del campo por empresa",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "javadoc": "determinar si esta activo o no el parametro por empresa"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "systemParameters",
+      "otherEntityRelationshipName": "systemParameterInstitution",
+      "relationshipValidateRules": "required",
+      "javadoc": "parameter of institution",
+      "relationshipName": "parameter",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "institution",
+      "otherEntityRelationshipName": "systemParameterInstitution",
+      "relationshipValidateRules": "required",
+      "javadoc": "institution of parameter",
+      "relationshipName": "institution",
+      "otherEntityField": "name"
+    }
+  ],
+  "javadoc": "The Entity SystemParameterInstitution.\\n@author macf",
+  "entityTableName": "system_parameter_institution",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225537"
+}

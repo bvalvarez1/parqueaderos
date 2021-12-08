@@ -1,0 +1,44 @@
+{
+  "name": "AuthorityFunctionality",
+  "fields": [
+    {
+      "fieldName": "authority",
+      "fieldType": "String",
+      "javadoc": "ROL de tabla authority",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "priority",
+      "fieldType": "Integer",
+      "javadoc": "prioridad",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "javadoc": "activo"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "functionality",
+      "otherEntityRelationshipName": "authorityFunctionality",
+      "relationshipValidateRules": "required",
+      "javadoc": "Funcionalidad asignada a rol",
+      "relationshipName": "functionality",
+      "otherEntityField": "name"
+    }
+  ],
+  "javadoc": "The Entity AuthorityFunctionality.\\n@author macf",
+  "entityTableName": "authority_functionality",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225540"
+}

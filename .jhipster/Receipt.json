@@ -1,0 +1,55 @@
+{
+  "name": "Receipt",
+  "fields": [
+    {
+      "fieldName": "authorizationNumber",
+      "fieldType": "String",
+      "javadoc": "autorizacion del SRI"
+    },
+    {
+      "fieldName": "sequential",
+      "fieldType": "String",
+      "javadoc": "secuencia de la factura"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String",
+      "javadoc": "estado de la factura"
+    },
+    {
+      "fieldName": "sriaccesskey",
+      "fieldType": "String",
+      "javadoc": "clave de acceso sri"
+    },
+    {
+      "fieldName": "sriauthorizationdate",
+      "fieldType": "LocalDate",
+      "javadoc": "fecha autorizacion sri"
+    },
+    {
+      "fieldName": "receiptdate",
+      "fieldType": "LocalDate",
+      "javadoc": "fecha emision factura"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "recordTicket",
+      "otherEntityRelationshipName": "receipt",
+      "relationshipName": "recordticketid",
+      "ownerSide": true
+    }
+  ],
+  "javadoc": "The Receipt entity.\\n@author A true hipster",
+  "entityTableName": "receipt",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225548"
+}

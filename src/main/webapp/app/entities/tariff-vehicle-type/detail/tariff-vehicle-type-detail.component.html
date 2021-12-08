@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="tariffVehicleType">
+      <h2 data-cy="tariffVehicleTypeDetailsHeading">
+        <span jhiTranslate="parqueaderosApp.tariffVehicleType.detail.title">Tariff Vehicle Type</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ tariffVehicleType.id }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.tariffVehicleType.minValue"
+            [ngbTooltip]="'parqueaderosApp.tariffVehicleType.help.minValue' | translate"
+            >Min Value</span
+          >
+        </dt>
+        <dd>
+          <span>{{ tariffVehicleType.minValue }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.tariffVehicleType.maxValue"
+            [ngbTooltip]="'parqueaderosApp.tariffVehicleType.help.maxValue' | translate"
+            >Max Value</span
+          >
+        </dt>
+        <dd>
+          <span>{{ tariffVehicleType.maxValue }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.tariffVehicleType.value"
+            [ngbTooltip]="'parqueaderosApp.tariffVehicleType.help.value' | translate"
+            >Value</span
+          >
+        </dt>
+        <dd>
+          <span>{{ tariffVehicleType.value }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.tariffVehicleType.vehicleType">Vehicle Type</span></dt>
+        <dd>
+          <div *ngIf="tariffVehicleType.vehicleType">
+            <a [routerLink]="['/item-catalogue', tariffVehicleType.vehicleType?.id, 'view']">{{ tariffVehicleType.vehicleType?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.tariffVehicleType.tariff">Tariff</span></dt>
+        <dd>
+          <div *ngIf="tariffVehicleType.tariff">
+            <a [routerLink]="['/tariff', tariffVehicleType.tariff?.id, 'view']">{{ tariffVehicleType.tariff?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/tariff-vehicle-type', tariffVehicleType.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

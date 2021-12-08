@@ -1,0 +1,47 @@
+{
+  "parqueaderosApp": {
+    "parking": {
+      "home": {
+        "title": "Parqueadero",
+        "busy": "Ocupados: {{ param }}",
+        "free": "Libres: {{ param }}",
+        "createOrEditLabel": "Nuevo ticket",
+        "notFound": "Ningún Institutions encontrado",
+        "newTicket": "Nuevo ticket de ingreso",
+        "ticket": "Ticket",
+        "plate": "Placa o referencia",
+        "enterdate": "Fecha de ingreso",
+        "outdate": "Fecha de salida",
+        "parkingTime": "Tiempo de parqueo",
+        "tariff": "Tarifa",
+        "place": "Puesto",
+        "voidQuestion": "Seguro de borrar el ticket nro: {{ param }}"
+      },
+      "created": "Un nuevo Institution ha sido creado con el identificador {{ param }}",
+      "updated": "Un Institution ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Institution ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Institution {{ id }}?"
+      },
+      "detail": {
+        "title": "Institution"
+      },
+      "id": "ID",
+      "name": "Name",
+      "address": "Address",
+      "placesNumber": "Places Number",
+      "ruc": "Ruc",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "canton": "Canton",
+      "help": {
+        "name": "nombre de la empresa/institucion",
+        "address": "Direccion",
+        "placesNumber": "espacios disponibles",
+        "ruc": "ruc de la empresa",
+        "latitude": "latitud",
+        "longitude": "longitud"
+      }
+    }
+  }
+}

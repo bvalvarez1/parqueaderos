@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Record.
+    -->
+    <changeSet id="20211019225543-1" author="jhipster">
+        <createTable tableName="record" remarks="The Entity record.\n@author Renmacfe">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="init_date" type="${datetimeType}" remarks="fecha inicio de ingreso">
+                <constraints nullable="false" />
+            </column>
+            <column name="end_date" type="${datetimeType}" remarks="fecha fin de salida">
+                <constraints nullable="true" />
+            </column>
+            <column name="plate" type="varchar(255)" remarks="placa">
+                <constraints nullable="true" />
+            </column>
+            <column name="parking_time" type="${datetimeType}" remarks="tiempo de parqueo">
+                <constraints nullable="true" />
+            </column>
+            <column name="taxable_total" type="decimal(21,2)" remarks="subtotal a pagar">
+                <constraints nullable="true" />
+            </column>
+            <column name="taxes" type="decimal(21,2)" remarks="iva a pagar">
+                <constraints nullable="true" />
+            </column>
+            <column name="total" type="decimal(21,2)" remarks="iva a pagar">
+                <constraints nullable="true" />
+            </column>
+            <column name="status_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="tariff_vehicle_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="institution_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="record" columnName="init_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="record" columnName="end_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="record" columnName="parking_time" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20211019225543-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/record.csv"
+                  separator=";"
+                  tableName="record"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="init_date" type="date"/>
+            <column name="end_date" type="date"/>
+            <column name="plate" type="string"/>
+            <column name="parking_time" type="date"/>
+            <column name="taxable_total" type="numeric"/>
+            <column name="taxes" type="numeric"/>
+            <column name="total" type="numeric"/>
+            <column name="status_id" type="numeric"/>
+            <column name="tariff_vehicle_id" type="numeric"/>
+            <column name="institution_id" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

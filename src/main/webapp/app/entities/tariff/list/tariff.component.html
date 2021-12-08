@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="TariffHeading">
+    <span jhiTranslate="parqueaderosApp.tariff.home.title">Tariffs</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="parqueaderosApp.tariff.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tariff"
+        [routerLink]="['/tariff/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="parqueaderosApp.tariff.home.createLabel"> Create a new Tariff </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tariffs?.length === 0">
+    <span jhiTranslate="parqueaderosApp.tariff.home.notFound">No tariffs found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="tariffs && tariffs.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="initialDate">
+            <span jhiTranslate="parqueaderosApp.tariff.initialDate">Initial Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="finalDate">
+            <span jhiTranslate="parqueaderosApp.tariff.finalDate">Final Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="institution.name">
+            <span jhiTranslate="parqueaderosApp.tariff.institution">Institution</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tariff of tariffs; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/tariff', tariff.id, 'view']">{{ tariff.id }}</a>
+          </td>
+          <td>{{ tariff.initialDate | formatMediumDate }}</td>
+          <td>{{ tariff.finalDate | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="tariff.institution">
+              <a [routerLink]="['/institution', tariff.institution?.id, 'view']">{{ tariff.institution?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/tariff', tariff.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/tariff', tariff.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(tariff)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="tariffs && tariffs.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

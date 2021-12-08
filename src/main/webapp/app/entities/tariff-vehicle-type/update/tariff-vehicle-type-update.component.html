@@ -1,0 +1,152 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-tariff-vehicle-type-heading"
+        data-cy="TariffVehicleTypeCreateUpdateHeading"
+        jhiTranslate="parqueaderosApp.tariffVehicleType.home.createOrEditLabel"
+      >
+        Create or edit a Tariff Vehicle Type
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.tariffVehicleType.minValue"
+            for="field_minValue"
+            [ngbTooltip]="'parqueaderosApp.tariffVehicleType.help.minValue' | translate"
+            >Min Value</label
+          >
+          <input type="number" class="form-control" name="minValue" id="field_minValue" data-cy="minValue" formControlName="minValue" />
+          <div *ngIf="editForm.get('minValue')!.invalid && (editForm.get('minValue')!.dirty || editForm.get('minValue')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('minValue')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('minValue')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.tariffVehicleType.maxValue"
+            for="field_maxValue"
+            [ngbTooltip]="'parqueaderosApp.tariffVehicleType.help.maxValue' | translate"
+            >Max Value</label
+          >
+          <input type="number" class="form-control" name="maxValue" id="field_maxValue" data-cy="maxValue" formControlName="maxValue" />
+          <div *ngIf="editForm.get('maxValue')!.invalid && (editForm.get('maxValue')!.dirty || editForm.get('maxValue')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('maxValue')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('maxValue')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.tariffVehicleType.value"
+            for="field_value"
+            [ngbTooltip]="'parqueaderosApp.tariffVehicleType.help.value' | translate"
+            >Value</label
+          >
+          <input type="number" class="form-control" name="value" id="field_value" data-cy="value" formControlName="value" />
+          <div *ngIf="editForm.get('value')!.invalid && (editForm.get('value')!.dirty || editForm.get('value')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('value')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('value')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.tariffVehicleType.vehicleType" for="field_vehicleType"
+            >Vehicle Type</label
+          >
+          <select class="form-control" id="field_vehicleType" data-cy="vehicleType" name="vehicleType" formControlName="vehicleType">
+            <option *ngIf="!editForm.get('vehicleType')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                itemCatalogueOption.id === editForm.get('vehicleType')!.value?.id ? editForm.get('vehicleType')!.value : itemCatalogueOption
+              "
+              *ngFor="let itemCatalogueOption of itemCataloguesSharedCollection; trackBy: trackItemCatalogueById"
+            >
+              {{ itemCatalogueOption.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['vehicleType'])!.invalid && (editForm.get(['vehicleType'])!.dirty || editForm.get(['vehicleType'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['vehicleType'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.tariffVehicleType.tariff" for="field_tariff">Tariff</label>
+          <select class="form-control" id="field_tariff" data-cy="tariff" name="tariff" formControlName="tariff">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="tariffOption.id === editForm.get('tariff')!.value?.id ? editForm.get('tariff')!.value : tariffOption"
+              *ngFor="let tariffOption of tariffsSharedCollection; trackBy: trackTariffById"
+            >
+              {{ tariffOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

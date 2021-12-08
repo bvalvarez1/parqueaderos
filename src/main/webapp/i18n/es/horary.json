@@ -1,0 +1,33 @@
+{
+  "parqueaderosApp": {
+    "horary": {
+      "home": {
+        "title": "Horaries",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Horary",
+        "createOrEditLabel": "Crear o editar Horary",
+        "notFound": "Ningún Horaries encontrado"
+      },
+      "created": "Un nuevo Horary ha sido creado con el identificador {{ param }}",
+      "updated": "Un Horary ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Horary ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Horary {{ id }}?"
+      },
+      "detail": {
+        "title": "Horary"
+      },
+      "id": "ID",
+      "name": "Name",
+      "startTime": "Start Time",
+      "finalHour": "Final Hour",
+      "status": "Status",
+      "contract": "Contract",
+      "help": {
+        "name": "name",
+        "startTime": "startTime",
+        "finalHour": "finalHour"
+      }
+    }
+  }
+}

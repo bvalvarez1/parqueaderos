@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="place">
+      <h2 data-cy="placeDetailsHeading"><span jhiTranslate="parqueaderosApp.place.detail.title">Place</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ place.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.place.number" [ngbTooltip]="'parqueaderosApp.place.help.number' | translate">Number</span>
+        </dt>
+        <dd>
+          <span>{{ place.number }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.place.status">Status</span></dt>
+        <dd>
+          <div *ngIf="place.status">
+            <a [routerLink]="['/item-catalogue', place.status?.id, 'view']">{{ place.status?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.place.institution">Institution</span></dt>
+        <dd>
+          <div *ngIf="place.institution">
+            <a [routerLink]="['/institution', place.institution?.id, 'view']">{{ place.institution?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/place', place.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

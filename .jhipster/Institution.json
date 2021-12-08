@@ -1,0 +1,78 @@
+{
+  "name": "Institution",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "nombre de la empresa/institucion",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "javadoc": "Direccion"
+    },
+    {
+      "fieldName": "placesNumber",
+      "fieldType": "Integer",
+      "javadoc": "espacios disponibles",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ruc",
+      "fieldType": "String",
+      "javadoc": "ruc de la empresa",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "latitude",
+      "fieldType": "BigDecimal",
+      "javadoc": "latitud"
+    },
+    {
+      "fieldName": "longitude",
+      "fieldType": "BigDecimal",
+      "javadoc": "longitud"
+    },
+    {
+      "fieldName": "acronym",
+      "fieldType": "String",
+      "javadoc": "for sequential",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sequencename",
+      "fieldType": "String",
+      "javadoc": "for sequential",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "place",
+      "otherEntityRelationshipName": "institution",
+      "javadoc": "places of institution",
+      "relationshipName": "places"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "institution",
+      "javadoc": "canton del parqueadero",
+      "relationshipName": "canton",
+      "otherEntityField": "name"
+    }
+  ],
+  "javadoc": "The Institution entity.\\n@author macf",
+  "entityTableName": "institution",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225535"
+}

@@ -1,0 +1,134 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-authority-functionality-heading"
+        data-cy="AuthorityFunctionalityCreateUpdateHeading"
+        jhiTranslate="parqueaderosApp.authorityFunctionality.home.createOrEditLabel"
+      >
+        Create or edit a Authority Functionality
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.authorityFunctionality.authority"
+            for="field_authority"
+            [ngbTooltip]="'parqueaderosApp.authorityFunctionality.help.authority' | translate"
+            >Authority</label
+          >
+          <input type="text" class="form-control" name="authority" id="field_authority" data-cy="authority" formControlName="authority" />
+          <div *ngIf="editForm.get('authority')!.invalid && (editForm.get('authority')!.dirty || editForm.get('authority')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('authority')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.authorityFunctionality.priority"
+            for="field_priority"
+            [ngbTooltip]="'parqueaderosApp.authorityFunctionality.help.priority' | translate"
+            >Priority</label
+          >
+          <input type="number" class="form-control" name="priority" id="field_priority" data-cy="priority" formControlName="priority" />
+          <div *ngIf="editForm.get('priority')!.invalid && (editForm.get('priority')!.dirty || editForm.get('priority')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('priority')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('priority')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.authorityFunctionality.active"
+            for="field_active"
+            [ngbTooltip]="'parqueaderosApp.authorityFunctionality.help.active' | translate"
+            >Active</label
+          >
+          <input type="checkbox" class="form-check" name="active" id="field_active" data-cy="active" formControlName="active" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.authorityFunctionality.functionality" for="field_functionality"
+            >Functionality</label
+          >
+          <select
+            class="form-control"
+            id="field_functionality"
+            data-cy="functionality"
+            name="functionality"
+            formControlName="functionality"
+          >
+            <option *ngIf="!editForm.get('functionality')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                functionalityOption.id === editForm.get('functionality')!.value?.id
+                  ? editForm.get('functionality')!.value
+                  : functionalityOption
+              "
+              *ngFor="let functionalityOption of functionalitiesSharedCollection; trackBy: trackFunctionalityById"
+            >
+              {{ functionalityOption.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['functionality'])!.invalid && (editForm.get(['functionality'])!.dirty || editForm.get(['functionality'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['functionality'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

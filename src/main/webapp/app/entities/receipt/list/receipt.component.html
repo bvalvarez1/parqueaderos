@@ -1,0 +1,126 @@
+<div>
+  <h2 id="page-heading" data-cy="ReceiptHeading">
+    <span jhiTranslate="parqueaderosApp.receipt.home.title">Receipts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="parqueaderosApp.receipt.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-receipt"
+        [routerLink]="['/receipt/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="parqueaderosApp.receipt.home.createLabel"> Create a new Receipt </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="receipts?.length === 0">
+    <span jhiTranslate="parqueaderosApp.receipt.home.notFound">No receipts found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="receipts && receipts.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="authorizationNumber">
+            <span jhiTranslate="parqueaderosApp.receipt.authorizationNumber">Authorization Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sequential">
+            <span jhiTranslate="parqueaderosApp.receipt.sequential">Sequential</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <span jhiTranslate="parqueaderosApp.receipt.status">Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sriaccesskey">
+            <span jhiTranslate="parqueaderosApp.receipt.sriaccesskey">Sriaccesskey</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sriauthorizationdate">
+            <span jhiTranslate="parqueaderosApp.receipt.sriauthorizationdate">Sriauthorizationdate</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="receiptdate">
+            <span jhiTranslate="parqueaderosApp.receipt.receiptdate">Receiptdate</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="recordticketid.id">
+            <span jhiTranslate="parqueaderosApp.receipt.recordticketid">Recordticketid</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let receipt of receipts; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/receipt', receipt.id, 'view']">{{ receipt.id }}</a>
+          </td>
+          <td>{{ receipt.authorizationNumber }}</td>
+          <td>{{ receipt.sequential }}</td>
+          <td>{{ receipt.status }}</td>
+          <td>{{ receipt.sriaccesskey }}</td>
+          <td>{{ receipt.sriauthorizationdate | formatMediumDate }}</td>
+          <td>{{ receipt.receiptdate | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="receipt.recordticketid">
+              <a [routerLink]="['/record-ticket', receipt.recordticketid?.id, 'view']">{{ receipt.recordticketid?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/receipt', receipt.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/receipt', receipt.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(receipt)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="receipts && receipts.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

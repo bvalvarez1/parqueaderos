@@ -1,0 +1,82 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="institution">
+      <h2 data-cy="institutionDetailsHeading"><span jhiTranslate="parqueaderosApp.institution.detail.title">Institution</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ institution.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.institution.name" [ngbTooltip]="'parqueaderosApp.institution.help.name' | translate"
+            >Name</span
+          >
+        </dt>
+        <dd>
+          <span>{{ institution.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.institution.address" [ngbTooltip]="'parqueaderosApp.institution.help.address' | translate"
+            >Address</span
+          >
+        </dt>
+        <dd>
+          <span>{{ institution.address }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.institution.placesNumber"
+            [ngbTooltip]="'parqueaderosApp.institution.help.placesNumber' | translate"
+            >Places Number</span
+          >
+        </dt>
+        <dd>
+          <span>{{ institution.placesNumber }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.institution.ruc" [ngbTooltip]="'parqueaderosApp.institution.help.ruc' | translate">Ruc</span>
+        </dt>
+        <dd>
+          <span>{{ institution.ruc }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.institution.latitude" [ngbTooltip]="'parqueaderosApp.institution.help.latitude' | translate"
+            >Latitude</span
+          >
+        </dt>
+        <dd>
+          <span>{{ institution.latitude }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.institution.longitude" [ngbTooltip]="'parqueaderosApp.institution.help.longitude' | translate"
+            >Longitude</span
+          >
+        </dt>
+        <dd>
+          <span>{{ institution.longitude }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.institution.canton">Canton</span></dt>
+        <dd>
+          <div *ngIf="institution.canton">
+            <a [routerLink]="['/item-catalogue', institution.canton?.id, 'view']">{{ institution.canton?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/institution', institution.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

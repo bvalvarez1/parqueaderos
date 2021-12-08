@@ -1,0 +1,178 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-receipt-heading" data-cy="ReceiptCreateUpdateHeading" jhiTranslate="parqueaderosApp.receipt.home.createOrEditLabel">
+        Create or edit a Receipt
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.receipt.authorizationNumber"
+            for="field_authorizationNumber"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.authorizationNumber' | translate"
+            >Authorization Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="authorizationNumber"
+            id="field_authorizationNumber"
+            data-cy="authorizationNumber"
+            formControlName="authorizationNumber"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.receipt.sequential"
+            for="field_sequential"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.sequential' | translate"
+            >Sequential</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="sequential"
+            id="field_sequential"
+            data-cy="sequential"
+            formControlName="sequential"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.receipt.status"
+            for="field_status"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.status' | translate"
+            >Status</label
+          >
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.receipt.sriaccesskey"
+            for="field_sriaccesskey"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.sriaccesskey' | translate"
+            >Sriaccesskey</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="sriaccesskey"
+            id="field_sriaccesskey"
+            data-cy="sriaccesskey"
+            formControlName="sriaccesskey"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.receipt.sriauthorizationdate"
+            for="field_sriauthorizationdate"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.sriauthorizationdate' | translate"
+            >Sriauthorizationdate</label
+          >
+          <div class="input-group">
+            <input
+              id="field_sriauthorizationdate"
+              data-cy="sriauthorizationdate"
+              type="text"
+              class="form-control"
+              name="sriauthorizationdate"
+              ngbDatepicker
+              #sriauthorizationdateDp="ngbDatepicker"
+              formControlName="sriauthorizationdate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="sriauthorizationdateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.receipt.receiptdate"
+            for="field_receiptdate"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.receiptdate' | translate"
+            >Receiptdate</label
+          >
+          <div class="input-group">
+            <input
+              id="field_receiptdate"
+              data-cy="receiptdate"
+              type="text"
+              class="form-control"
+              name="receiptdate"
+              ngbDatepicker
+              #receiptdateDp="ngbDatepicker"
+              formControlName="receiptdate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="receiptdateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.receipt.recordticketid" for="field_recordticketid"
+            >Recordticketid</label
+          >
+          <select
+            class="form-control"
+            id="field_recordticketid"
+            data-cy="recordticketid"
+            name="recordticketid"
+            formControlName="recordticketid"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                recordTicketOption.id === editForm.get('recordticketid')!.value?.id
+                  ? editForm.get('recordticketid')!.value
+                  : recordTicketOption
+              "
+              *ngFor="let recordTicketOption of recordticketidsCollection; trackBy: trackRecordTicketById"
+            >
+              {{ recordTicketOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+{
+  "name": "Horary",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "name",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "startTime",
+      "fieldType": "Instant",
+      "javadoc": "startTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "finalHour",
+      "fieldType": "Instant",
+      "javadoc": "finalHour",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "horary",
+      "relationshipValidateRules": "required",
+      "javadoc": "estado of horario",
+      "relationshipName": "status",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "contract",
+      "otherEntityRelationshipName": "horaries",
+      "relationshipName": "contract"
+    }
+  ],
+  "javadoc": "The Horary entity.\\n@author macf",
+  "entityTableName": "horary",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225542"
+}

@@ -1,0 +1,68 @@
+<form name="newForm" (ngSubmit)="newTicket()" [formGroup]="newForm">
+  <div class="modal-header">
+    <h4 class="modal-title" jhiTranslate="parqueaderosApp.parking.home.newTicket">Nuevo ticket</h4>
+
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+      <div class="col-md-4">
+        <label
+          class="form-control-label"
+          jhiTranslate="parqueaderosApp.parking.home.plate"
+          for="field_name"
+          [ngbTooltip]="'parqueaderosApp.parking.home.plate' | translate"
+          >Placa o referencia</label
+        >
+      </div>
+      <div class="col-md-8">
+        <input type="text" class="form-control" name="plate" id="field_plate" data-cy="plate" formControlName="plate" />
+        <div *ngIf="newForm.get('plate')!.invalid && (newForm.get('plate')!.dirty || newForm.get('plate')!.touched)">
+          <small class="form-text text-danger" *ngIf="newForm.get('plate')?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label
+          class="form-control-label"
+          jhiTranslate="parqueaderosApp.parking.home.tariff"
+          for="vehicle_type"
+          [ngbTooltip]="'parqueaderosApp.parking.home.plate' | translate"
+          >Tarifa</label
+        >
+      </div>
+
+      <div class="col-md-8">
+        <select class="form-control" id="tariffType" data-cy="tariffType" name="tariffType" formControlName="tariffType">
+          <option
+            [ngValue]="tariff.id === newForm.get('tariffType')!.value?.id ? newForm.get('tariffType')!.value : tariff"
+            *ngFor="let tariff of tariffs; trackBy: trackTariffVehicleTypeById"
+          >
+            {{ tariff.vehicleType?.name }} - ${{ tariff.value }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+
+    <button
+      id="jhi-confirm-delete-institution"
+      data-cy="entityConfirmDeleteButton"
+      type="submit"
+      class="btn btn-danger"
+      [disabled]="!newForm.valid"
+    >
+      <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+    </button>
+  </div>
+</form>

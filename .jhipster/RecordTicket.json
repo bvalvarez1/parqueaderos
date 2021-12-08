@@ -1,0 +1,112 @@
+{
+  "name": "RecordTicket",
+  "fields": [
+    {
+      "fieldName": "initDate",
+      "fieldType": "Instant",
+      "javadoc": "fecha inicio de ingreso",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "Instant",
+      "javadoc": "fecha fin de salida"
+    },
+    {
+      "fieldName": "plate",
+      "fieldType": "String",
+      "javadoc": "placa"
+    },
+    {
+      "fieldName": "parkingTime",
+      "fieldType": "Instant",
+      "javadoc": "tiempo de parqueo"
+    },
+    {
+      "fieldName": "taxableTotal",
+      "fieldType": "BigDecimal",
+      "javadoc": "subtotal a pagar"
+    },
+    {
+      "fieldName": "taxes",
+      "fieldType": "BigDecimal",
+      "javadoc": "iva a pagar"
+    },
+    {
+      "fieldName": "total",
+      "fieldType": "BigDecimal",
+      "javadoc": "iva a pagar"
+    },
+    {
+      "fieldName": "observation",
+      "fieldType": "String",
+      "javadoc": "observacion de anulacion"
+    },
+    {
+      "fieldName": "sequential",
+      "fieldType": "String",
+      "javadoc": "secuancia del tickets"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "place",
+      "otherEntityRelationshipName": "recordTicket",
+      "relationshipName": "placeid",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "recordTicket",
+      "relationshipName": "emitter",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "recordTicket",
+      "relationshipName": "collector",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "recordTicket",
+      "relationshipValidateRules": "required",
+      "javadoc": "RecordTicket status",
+      "relationshipName": "status",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tariffVehicleType",
+      "otherEntityRelationshipName": "recordTicket",
+      "relationshipValidateRules": "required",
+      "javadoc": "RecordTicket tariff applied",
+      "relationshipName": "tariffVehicle",
+      "otherEntityField": "maxValue"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "institution",
+      "otherEntityRelationshipName": "recordTicket",
+      "relationshipValidateRules": "required",
+      "javadoc": "RecordTicket institution",
+      "relationshipName": "institution",
+      "otherEntityField": "name"
+    }
+  ],
+  "javadoc": "The Entity RecordTicket.\\n@author Renmacfe",
+  "entityTableName": "record_ticket",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211020030411"
+}

@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="catalogue">
+      <h2 data-cy="catalogueDetailsHeading"><span jhiTranslate="parqueaderosApp.catalogue.detail.title">Catalogue</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ catalogue.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.catalogue.name" [ngbTooltip]="'parqueaderosApp.catalogue.help.name' | translate">Name</span>
+        </dt>
+        <dd>
+          <span>{{ catalogue.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.catalogue.code" [ngbTooltip]="'parqueaderosApp.catalogue.help.code' | translate">Code</span>
+        </dt>
+        <dd>
+          <span>{{ catalogue.code }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.catalogue.description" [ngbTooltip]="'parqueaderosApp.catalogue.help.description' | translate"
+            >Description</span
+          >
+        </dt>
+        <dd>
+          <span>{{ catalogue.description }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.catalogue.active" [ngbTooltip]="'parqueaderosApp.catalogue.help.active' | translate"
+            >Active</span
+          >
+        </dt>
+        <dd>
+          <span>{{ catalogue.active }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/catalogue', catalogue.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

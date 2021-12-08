@@ -1,0 +1,38 @@
+{
+  "name": "Place",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "String",
+      "javadoc": "number",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "place",
+      "javadoc": "estado del lugar de estacionamiento",
+      "relationshipName": "status",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "institution",
+      "otherEntityRelationshipName": "places",
+      "relationshipName": "institution"
+    }
+  ],
+  "javadoc": "The Place entity.\\n@author A true hipster",
+  "entityTableName": "place",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211027213911"
+}

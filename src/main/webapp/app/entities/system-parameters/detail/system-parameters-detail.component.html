@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="systemParameters">
+      <h2 data-cy="systemParametersDetailsHeading">
+        <span jhiTranslate="parqueaderosApp.systemParameters.detail.title">System Parameters</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ systemParameters.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.systemParameters.name" [ngbTooltip]="'parqueaderosApp.systemParameters.help.name' | translate"
+            >Name</span
+          >
+        </dt>
+        <dd>
+          <span>{{ systemParameters.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.systemParameters.code" [ngbTooltip]="'parqueaderosApp.systemParameters.help.code' | translate"
+            >Code</span
+          >
+        </dt>
+        <dd>
+          <span>{{ systemParameters.code }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.systemParameters.clase"
+            [ngbTooltip]="'parqueaderosApp.systemParameters.help.clase' | translate"
+            >Clase</span
+          >
+        </dt>
+        <dd>
+          <span>{{ systemParameters.clase }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/system-parameters', systemParameters.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

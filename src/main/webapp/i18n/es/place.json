@@ -1,0 +1,29 @@
+{
+  "parqueaderosApp": {
+    "place": {
+      "home": {
+        "title": "Places",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Place",
+        "createOrEditLabel": "Crear o editar Place",
+        "notFound": "Ningún Places encontrado"
+      },
+      "created": "Un nuevo Place ha sido creado con el identificador {{ param }}",
+      "updated": "Un Place ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Place ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Place {{ id }}?"
+      },
+      "detail": {
+        "title": "Place"
+      },
+      "id": "ID",
+      "number": "Number",
+      "status": "Status",
+      "institution": "Institution",
+      "help": {
+        "number": "number"
+      }
+    }
+  }
+}

@@ -1,0 +1,203 @@
+<div>
+  <h2 id="page-heading" data-cy="InstitutionHeading">
+    <span>Parqueadero: {{ institution?.name }}</span>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <button class="btn btn-info btn-sm col-md-12 button14pt" (click)="newTicket()">
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="parqueaderosApp.parking.home.createOrEditLabel">Nuevo ticket</span>
+            </button>
+          </div>
+          <div style="height: 10px"></div>
+          <div class="row">
+            <button class="btn btn-primary btn-sm width50P button14pt" (click)="loadPage()">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span jhiTranslate="parqueaderosApp.parking.home.free" [translateValues]="{ param: freePlaces }"
+                >Libres: {{ freePlaces }}</span
+              >
+            </button>
+            <button class="btn btn-danger btn-sm width50P button14pt" (click)="loadPage()">
+              <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+              <span jhiTranslate="parqueaderosApp.parking.home.busy" [translateValues]="{ param: busyPlaces }"
+                >Ocupados: {{ busyPlaces }}</span
+              >
+            </button>
+          </div>
+          <div class="row" *ngIf="placesTickets && placesTickets.length > 0">
+            <div *ngFor="let placeTicket of placesTickets" [ngClass]="placeTicket.placeCode_ == 'FREE_PLACE' ? 'placesFree' : 'placesBusy'">
+              <div>{{ placeTicket.number_ }}</div>
+              <div *ngIf="placeTicket.placeCode_ == 'BUSY_PLACE'" class="numberTicket">{{ placeTicket.sequential_ }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 borderleft">
+      <div class="row">
+        <div class="outTitle">
+          <h2>Salida de vehículos</h2>
+        </div>
+      </div>
+      <form name="outForm" (ngSubmit)="outTicket()" [formGroup]="outForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                <label
+                  class="form-control-label label-big"
+                  jhiTranslate="parqueaderosApp.parking.home.ticket"
+                  for="field_name"
+                  [ngbTooltip]="'parqueaderosApp.parking.home.ticket' | translate"
+                  >Ticket</label
+                >
+              </div>
+              <div class="col-md-7">
+                <input type="text" class="form-control input-big" name="plate" id="field_plate" data-cy="plate" formControlName="ticket" />
+                <div *ngIf="outForm.get('ticket')!.invalid && (outForm.get('ticket')!.dirty || outForm.get('ticket')!.touched)">
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="outForm.get('plate')?.errors?.required"
+                    jhiTranslate="entity.validation.required"
+                  >
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <button class="btn btn-info btn-sm col-md-12 input-big leftminus" (click)="calculateTimeParking()">
+                  <fa-icon icon="sign-in-alt"></fa-icon>
+                  <span></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <label
+                  class="form-control-label label-medium"
+                  jhiTranslate="parqueaderosApp.parking.home.place"
+                  for="field_name"
+                  [ngbTooltip]="'parqueaderosApp.parking.home.place' | translate"
+                  >Puesto</label
+                >
+              </div>
+              <div class="col-md-9">
+                {{ ticketForPay?.placeid?.number }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <label
+                  class="form-control-label label-medium"
+                  jhiTranslate="parqueaderosApp.parking.home.enterdate"
+                  for="field_name"
+                  [ngbTooltip]="'parqueaderosApp.parking.home.enterdate' | translate"
+                  >Fecha ingreso</label
+                >
+              </div>
+              <div class="col-md-9">
+                {{ ticketForPay?.initDate | formatMediumDatetime }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <label
+                  class="form-control-label label-medium"
+                  jhiTranslate="parqueaderosApp.parking.home.outdate"
+                  for="field_name"
+                  [ngbTooltip]="'parqueaderosApp.parking.home.outdate' | translate"
+                  >Fecha salida:</label
+                >
+              </div>
+              <div class="col-md-9">
+                {{ ticketForPay?.endDate | formatMediumDatetime }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <label
+                  class="form-control-label label-medium"
+                  jhiTranslate="parqueaderosApp.parking.home.parkingTime"
+                  for="field_name"
+                  [ngbTooltip]="'parqueaderosApp.parking.home.parkingTime' | translate"
+                  >Tiempo de parqueo</label
+                >
+              </div>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="label-medium text-center">{{ ticketForPay?.days }}</div>
+                    <div class="label-medium text-center">DIAS</div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="label-medium text-center">{{ ticketForPay?.hours }}</div>
+                    <div class="label-medium text-center">HORAS</div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="label-medium text-center">{{ ticketForPay?.minutes }}</div>
+                    <div class="label-medium text-center">MIN</div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="label-medium text-center">{{ ticketForPay?.seconds }}</div>
+                    <div class="label-medium text-center">SEG</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 form-control-label label-medium">Valor por hora</div>
+              <div class="col-md-9 text-left">$ {{ ticketForPay?.tariffVehicle?.value }}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <!-- BOTONES PARA SALIDA/ANULACION/REIMPRESION-->
+            <div class="row">
+              <div class="col-md-4">
+                <button class="btn btn-info btn-sm col-md-12" [disabled]="!enableButtons" (click)="payTicket()">
+                  <fa-icon icon="ban"></fa-icon>
+                  <span>Cobro</span>
+                </button>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-danger btn-sm col-md-12" [disabled]="!enableButtons" (click)="cancelTicket()">
+                  <fa-icon icon="ban"></fa-icon>
+                  <span>Anulación</span>
+                </button>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-info btn-sm col-md-12" [disabled]="!enableButtons">
+                  <fa-icon icon="print"></fa-icon>
+                  <span>Imprimir</span>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 labelValues">Subtotal</div>
+              <div class="col-md-8 values">$ {{ ticketForPay?.taxableTotal }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 labelValues">IVA</div>
+              <div class="col-md-8 values">$ {{ ticketForPay?.taxes }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 labelValues">TOTAL</div>
+              <div class="col-md-8 values total">${{ ticketForPay?.total }}</div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

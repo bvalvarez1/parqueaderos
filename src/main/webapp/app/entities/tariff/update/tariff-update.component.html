@@ -1,0 +1,123 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-tariff-heading" data-cy="TariffCreateUpdateHeading" jhiTranslate="parqueaderosApp.tariff.home.createOrEditLabel">
+        Create or edit a Tariff
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.tariff.initialDate"
+            for="field_initialDate"
+            [ngbTooltip]="'parqueaderosApp.tariff.help.initialDate' | translate"
+            >Initial Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_initialDate"
+              data-cy="initialDate"
+              type="text"
+              class="form-control"
+              name="initialDate"
+              ngbDatepicker
+              #initialDateDp="ngbDatepicker"
+              formControlName="initialDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="initialDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+          <div *ngIf="editForm.get('initialDate')!.invalid && (editForm.get('initialDate')!.dirty || editForm.get('initialDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('initialDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.tariff.finalDate"
+            for="field_finalDate"
+            [ngbTooltip]="'parqueaderosApp.tariff.help.finalDate' | translate"
+            >Final Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_finalDate"
+              data-cy="finalDate"
+              type="text"
+              class="form-control"
+              name="finalDate"
+              ngbDatepicker
+              #finalDateDp="ngbDatepicker"
+              formControlName="finalDate"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="finalDateDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.tariff.institution" for="field_institution">Institution</label>
+          <select class="form-control" id="field_institution" data-cy="institution" name="institution" formControlName="institution">
+            <option *ngIf="!editForm.get('institution')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                institutionOption.id === editForm.get('institution')!.value?.id ? editForm.get('institution')!.value : institutionOption
+              "
+              *ngFor="let institutionOption of institutionsSharedCollection; trackBy: trackInstitutionById"
+            >
+              {{ institutionOption.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['institution'])!.invalid && (editForm.get(['institution'])!.dirty || editForm.get(['institution'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['institution'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

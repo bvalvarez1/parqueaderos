@@ -1,0 +1,31 @@
+{
+  "parqueaderosApp": {
+    "tariff": {
+      "home": {
+        "title": "Tariffs",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Tariff",
+        "createOrEditLabel": "Crear o editar Tariff",
+        "notFound": "Ningún Tariffs encontrado"
+      },
+      "created": "Un nuevo Tariff ha sido creado con el identificador {{ param }}",
+      "updated": "Un Tariff ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Tariff ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Tariff {{ id }}?"
+      },
+      "detail": {
+        "title": "Tariff"
+      },
+      "id": "ID",
+      "initialDate": "Initial Date",
+      "finalDate": "Final Date",
+      "tarifs": "Tarifs",
+      "institution": "Institution",
+      "help": {
+        "initialDate": "fecha inicial de tarifa",
+        "finalDate": "fecha final de tarifa"
+      }
+    }
+  }
+}

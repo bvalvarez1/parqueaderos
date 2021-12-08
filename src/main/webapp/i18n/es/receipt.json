@@ -1,0 +1,38 @@
+{
+  "parqueaderosApp": {
+    "receipt": {
+      "home": {
+        "title": "Receipts",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Receipt",
+        "createOrEditLabel": "Crear o editar Receipt",
+        "notFound": "Ningún Receipts encontrado"
+      },
+      "created": "Un nuevo Receipt ha sido creado con el identificador {{ param }}",
+      "updated": "Un Receipt ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Receipt ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Receipt {{ id }}?"
+      },
+      "detail": {
+        "title": "Receipt"
+      },
+      "id": "ID",
+      "authorizationNumber": "Authorization Number",
+      "sequential": "Sequential",
+      "status": "Status",
+      "sriaccesskey": "Sriaccesskey",
+      "sriauthorizationdate": "Sriauthorizationdate",
+      "receiptdate": "Receiptdate",
+      "recordticketid": "Recordticketid",
+      "help": {
+        "authorizationNumber": "autorizacion del SRI",
+        "sequential": "secuencia de la factura",
+        "status": "estado de la factura",
+        "sriaccesskey": "clave de acceso sri",
+        "sriauthorizationdate": "fecha autorizacion sri",
+        "receiptdate": "fecha emision factura"
+      }
+    }
+  }
+}

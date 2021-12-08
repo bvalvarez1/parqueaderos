@@ -1,0 +1,33 @@
+{
+  "parqueaderosApp": {
+    "tariffVehicleType": {
+      "home": {
+        "title": "Tariff Vehicle Types",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Tariff Vehicle Type",
+        "createOrEditLabel": "Crear o editar Tariff Vehicle Type",
+        "notFound": "Ningún Tariff Vehicle Types encontrado"
+      },
+      "created": "Un nuevo Tariff Vehicle Type ha sido creado con el identificador {{ param }}",
+      "updated": "Un Tariff Vehicle Type ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Tariff Vehicle Type ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Tariff Vehicle Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Tariff Vehicle Type"
+      },
+      "id": "ID",
+      "minValue": "Min Value",
+      "maxValue": "Max Value",
+      "value": "Value",
+      "vehicleType": "Vehicle Type",
+      "tariff": "Tariff",
+      "help": {
+        "minValue": "valor minimo",
+        "maxValue": "valor maximo",
+        "value": "valor tarifa"
+      }
+    }
+  }
+}

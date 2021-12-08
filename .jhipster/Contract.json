@@ -1,0 +1,71 @@
+{
+  "name": "Contract",
+  "fields": [
+    {
+      "fieldName": "number",
+      "fieldType": "String",
+      "javadoc": "number",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "initDate",
+      "fieldType": "LocalDate",
+      "javadoc": "inicio del contrato",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate",
+      "javadoc": "fin del contrato",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "value",
+      "fieldType": "BigDecimal",
+      "javadoc": "valor del contrato",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "hours",
+      "fieldType": "BigDecimal",
+      "javadoc": "hours"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "horary",
+      "otherEntityRelationshipName": "contract",
+      "javadoc": "horarios de contract",
+      "relationshipName": "horaries"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "contract",
+      "relationshipValidateRules": "required",
+      "javadoc": "estado del contrato",
+      "relationshipName": "status",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "contract",
+      "relationshipValidateRules": "required",
+      "javadoc": "persona del contrato",
+      "relationshipName": "contractor",
+      "otherEntityField": "fullName"
+    }
+  ],
+  "entityTableName": "contract",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225541"
+}

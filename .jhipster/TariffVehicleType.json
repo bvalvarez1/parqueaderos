@@ -1,0 +1,51 @@
+{
+  "name": "TariffVehicleType",
+  "fields": [
+    {
+      "fieldName": "minValue",
+      "fieldType": "Integer",
+      "javadoc": "valor minimo",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "maxValue",
+      "fieldType": "Integer",
+      "javadoc": "valor maximo",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "value",
+      "fieldType": "BigDecimal",
+      "javadoc": "valor tarifa",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "tariffVehicleType",
+      "relationshipValidateRules": "required",
+      "javadoc": "vehicle type",
+      "relationshipName": "vehicleType",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tariff",
+      "otherEntityRelationshipName": "tarifs",
+      "relationshipName": "tariff"
+    }
+  ],
+  "javadoc": "The TariffVehicleType entity.\\n@author macf",
+  "entityTableName": "tariff_vehicle_type",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225545"
+}

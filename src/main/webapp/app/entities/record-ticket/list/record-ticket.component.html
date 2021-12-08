@@ -1,0 +1,176 @@
+<div>
+  <h2 id="page-heading" data-cy="RecordTicketHeading">
+    <span jhiTranslate="parqueaderosApp.recordTicket.home.title">Record Tickets</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="parqueaderosApp.recordTicket.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-record-ticket"
+        [routerLink]="['/record-ticket/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="parqueaderosApp.recordTicket.home.createLabel"> Create a new Record Ticket </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="recordTickets?.length === 0">
+    <span jhiTranslate="parqueaderosApp.recordTicket.home.notFound">No recordTickets found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="recordTickets && recordTickets.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="initDate">
+            <span jhiTranslate="parqueaderosApp.recordTicket.initDate">Init Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="endDate">
+            <span jhiTranslate="parqueaderosApp.recordTicket.endDate">End Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="plate">
+            <span jhiTranslate="parqueaderosApp.recordTicket.plate">Plate</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="parkingTime">
+            <span jhiTranslate="parqueaderosApp.recordTicket.parkingTime">Parking Time</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="taxableTotal">
+            <span jhiTranslate="parqueaderosApp.recordTicket.taxableTotal">Taxable Total</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="taxes">
+            <span jhiTranslate="parqueaderosApp.recordTicket.taxes">Taxes</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="total">
+            <span jhiTranslate="parqueaderosApp.recordTicket.total">Total</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="observation">
+            <span jhiTranslate="parqueaderosApp.recordTicket.observation">Observation</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sequential">
+            <span jhiTranslate="parqueaderosApp.recordTicket.sequential">Sequential</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="placeid.id">
+            <span jhiTranslate="parqueaderosApp.recordTicket.placeid">Placeid</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="emitter.id">
+            <span jhiTranslate="parqueaderosApp.recordTicket.emitter">Emitter</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="collector.id">
+            <span jhiTranslate="parqueaderosApp.recordTicket.collector">Collector</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="status.name">
+            <span jhiTranslate="parqueaderosApp.recordTicket.status">Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="tariffVehicle.maxValue">
+            <span jhiTranslate="parqueaderosApp.recordTicket.tariffVehicle">Tariff Vehicle</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="institution.name">
+            <span jhiTranslate="parqueaderosApp.recordTicket.institution">Institution</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let recordTicket of recordTickets; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/record-ticket', recordTicket.id, 'view']">{{ recordTicket.id }}</a>
+          </td>
+          <td>{{ recordTicket.initDate | formatMediumDatetime }}</td>
+          <td>{{ recordTicket.endDate | formatMediumDatetime }}</td>
+          <td>{{ recordTicket.plate }}</td>
+          <td>{{ recordTicket.parkingTime | formatMediumDatetime }}</td>
+          <td>{{ recordTicket.taxableTotal }}</td>
+          <td>{{ recordTicket.taxes }}</td>
+          <td>{{ recordTicket.total }}</td>
+          <td>{{ recordTicket.observation }}</td>
+          <td>{{ recordTicket.sequential }}</td>
+          <td>
+            <div *ngIf="recordTicket.placeid">
+              <a [routerLink]="['/place', recordTicket.placeid?.id, 'view']">{{ recordTicket.placeid?.id }}</a>
+            </div>
+          </td>
+          <td>
+            {{ recordTicket.emitter?.id }}
+          </td>
+          <td>
+            {{ recordTicket.collector?.id }}
+          </td>
+          <td>
+            <div *ngIf="recordTicket.status">
+              <a [routerLink]="['/item-catalogue', recordTicket.status?.id, 'view']">{{ recordTicket.status?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="recordTicket.tariffVehicle">
+              <a [routerLink]="['/tariff-vehicle-type', recordTicket.tariffVehicle?.id, 'view']">{{
+                recordTicket.tariffVehicle?.maxValue
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="recordTicket.institution">
+              <a [routerLink]="['/institution', recordTicket.institution?.id, 'view']">{{ recordTicket.institution?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/record-ticket', recordTicket.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/record-ticket', recordTicket.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(recordTicket)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="recordTickets && recordTickets.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

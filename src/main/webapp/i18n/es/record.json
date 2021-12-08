@@ -1,0 +1,23 @@
+{
+  "parqueaderosApp": {
+    "record": {
+      "home": {
+        "title": "Records",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Record",
+        "createOrEditLabel": "Crear o editar Record",
+        "notFound": "Ningún Records encontrado"
+      },
+      "created": "Un nuevo Record ha sido creado con el identificador {{ param }}",
+      "updated": "Un Record ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Record ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Record {{ id }}?"
+      },
+      "detail": {
+        "title": "Record"
+      },
+      "id": "ID"
+    }
+  }
+}

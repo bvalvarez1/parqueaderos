@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="receipt">
+      <h2 data-cy="receiptDetailsHeading"><span jhiTranslate="parqueaderosApp.receipt.detail.title">Receipt</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ receipt.id }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.receipt.authorizationNumber"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.authorizationNumber' | translate"
+            >Authorization Number</span
+          >
+        </dt>
+        <dd>
+          <span>{{ receipt.authorizationNumber }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.receipt.sequential" [ngbTooltip]="'parqueaderosApp.receipt.help.sequential' | translate"
+            >Sequential</span
+          >
+        </dt>
+        <dd>
+          <span>{{ receipt.sequential }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.receipt.status" [ngbTooltip]="'parqueaderosApp.receipt.help.status' | translate">Status</span>
+        </dt>
+        <dd>
+          <span>{{ receipt.status }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.receipt.sriaccesskey" [ngbTooltip]="'parqueaderosApp.receipt.help.sriaccesskey' | translate"
+            >Sriaccesskey</span
+          >
+        </dt>
+        <dd>
+          <span>{{ receipt.sriaccesskey }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.receipt.sriauthorizationdate"
+            [ngbTooltip]="'parqueaderosApp.receipt.help.sriauthorizationdate' | translate"
+            >Sriauthorizationdate</span
+          >
+        </dt>
+        <dd>
+          <span>{{ receipt.sriauthorizationdate | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.receipt.receiptdate" [ngbTooltip]="'parqueaderosApp.receipt.help.receiptdate' | translate"
+            >Receiptdate</span
+          >
+        </dt>
+        <dd>
+          <span>{{ receipt.receiptdate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.receipt.recordticketid">Recordticketid</span></dt>
+        <dd>
+          <div *ngIf="receipt.recordticketid">
+            <a [routerLink]="['/record-ticket', receipt.recordticketid?.id, 'view']">{{ receipt.recordticketid?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/receipt', receipt.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

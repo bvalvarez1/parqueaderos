@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="userAuthorityInstitution">
+      <h2 data-cy="userAuthorityInstitutionDetailsHeading">
+        <span jhiTranslate="parqueaderosApp.userAuthorityInstitution.detail.title">User Authority Institution</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ userAuthorityInstitution.id }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.userAuthorityInstitution.active"
+            [ngbTooltip]="'parqueaderosApp.userAuthorityInstitution.help.active' | translate"
+            >Active</span
+          >
+        </dt>
+        <dd>
+          <span>{{ userAuthorityInstitution.active }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.userAuthorityInstitution.institution">Institution</span></dt>
+        <dd>
+          <div *ngIf="userAuthorityInstitution.institution">
+            <a [routerLink]="['/institution', userAuthorityInstitution.institution?.id, 'view']">{{
+              userAuthorityInstitution.institution?.name
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.userAuthorityInstitution.userAuthority">User Authority</span></dt>
+        <dd>
+          <div *ngIf="userAuthorityInstitution.userAuthority">
+            <a [routerLink]="['/user-authority', userAuthorityInstitution.userAuthority?.id, 'view']">{{
+              userAuthorityInstitution.userAuthority?.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/user-authority-institution', userAuthorityInstitution.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

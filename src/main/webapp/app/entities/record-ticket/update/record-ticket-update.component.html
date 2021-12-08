@@ -1,0 +1,327 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-record-ticket-heading"
+        data-cy="RecordTicketCreateUpdateHeading"
+        jhiTranslate="parqueaderosApp.recordTicket.home.createOrEditLabel"
+      >
+        Create or edit a Record Ticket
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.initDate"
+            for="field_initDate"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.initDate' | translate"
+            >Init Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_initDate"
+              data-cy="initDate"
+              type="datetime-local"
+              class="form-control"
+              name="initDate"
+              formControlName="initDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('initDate')!.invalid && (editForm.get('initDate')!.dirty || editForm.get('initDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('initDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('initDate')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.endDate"
+            for="field_endDate"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.endDate' | translate"
+            >End Date</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="datetime-local"
+              class="form-control"
+              name="endDate"
+              formControlName="endDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.plate"
+            for="field_plate"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.plate' | translate"
+            >Plate</label
+          >
+          <input type="text" class="form-control" name="plate" id="field_plate" data-cy="plate" formControlName="plate" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.parkingTime"
+            for="field_parkingTime"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.parkingTime' | translate"
+            >Parking Time</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_parkingTime"
+              data-cy="parkingTime"
+              type="datetime-local"
+              class="form-control"
+              name="parkingTime"
+              formControlName="parkingTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.taxableTotal"
+            for="field_taxableTotal"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.taxableTotal' | translate"
+            >Taxable Total</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="taxableTotal"
+            id="field_taxableTotal"
+            data-cy="taxableTotal"
+            formControlName="taxableTotal"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.taxes"
+            for="field_taxes"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.taxes' | translate"
+            >Taxes</label
+          >
+          <input type="number" class="form-control" name="taxes" id="field_taxes" data-cy="taxes" formControlName="taxes" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.total"
+            for="field_total"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.total' | translate"
+            >Total</label
+          >
+          <input type="number" class="form-control" name="total" id="field_total" data-cy="total" formControlName="total" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.observation"
+            for="field_observation"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.observation' | translate"
+            >Observation</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="observation"
+            id="field_observation"
+            data-cy="observation"
+            formControlName="observation"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.recordTicket.sequential"
+            for="field_sequential"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.sequential' | translate"
+            >Sequential</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="sequential"
+            id="field_sequential"
+            data-cy="sequential"
+            formControlName="sequential"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.recordTicket.placeid" for="field_placeid">Placeid</label>
+          <select class="form-control" id="field_placeid" data-cy="placeid" name="placeid" formControlName="placeid">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="placeOption.id === editForm.get('placeid')!.value?.id ? editForm.get('placeid')!.value : placeOption"
+              *ngFor="let placeOption of placeidsCollection; trackBy: trackPlaceById"
+            >
+              {{ placeOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.recordTicket.emitter" for="field_emitter">Emitter</label>
+          <select class="form-control" id="field_emitter" data-cy="emitter" name="emitter" formControlName="emitter">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('emitter')!.value?.id ? editForm.get('emitter')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.recordTicket.collector" for="field_collector">Collector</label>
+          <select class="form-control" id="field_collector" data-cy="collector" name="collector" formControlName="collector">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('collector')!.value?.id ? editForm.get('collector')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.recordTicket.status" for="field_status">Status</label>
+          <select class="form-control" id="field_status" data-cy="status" name="status" formControlName="status">
+            <option *ngIf="!editForm.get('status')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="itemCatalogueOption.id === editForm.get('status')!.value?.id ? editForm.get('status')!.value : itemCatalogueOption"
+              *ngFor="let itemCatalogueOption of itemCataloguesSharedCollection; trackBy: trackItemCatalogueById"
+            >
+              {{ itemCatalogueOption.name }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['status'])!.invalid && (editForm.get(['status'])!.dirty || editForm.get(['status'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['status'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.recordTicket.tariffVehicle" for="field_tariffVehicle"
+            >Tariff Vehicle</label
+          >
+          <select
+            class="form-control"
+            id="field_tariffVehicle"
+            data-cy="tariffVehicle"
+            name="tariffVehicle"
+            formControlName="tariffVehicle"
+          >
+            <option *ngIf="!editForm.get('tariffVehicle')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                tariffVehicleTypeOption.id === editForm.get('tariffVehicle')!.value?.id
+                  ? editForm.get('tariffVehicle')!.value
+                  : tariffVehicleTypeOption
+              "
+              *ngFor="let tariffVehicleTypeOption of tariffVehicleTypesSharedCollection; trackBy: trackTariffVehicleTypeById"
+            >
+              {{ tariffVehicleTypeOption.maxValue }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['tariffVehicle'])!.invalid && (editForm.get(['tariffVehicle'])!.dirty || editForm.get(['tariffVehicle'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['tariffVehicle'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.recordTicket.institution" for="field_institution"
+            >Institution</label
+          >
+          <select class="form-control" id="field_institution" data-cy="institution" name="institution" formControlName="institution">
+            <option *ngIf="!editForm.get('institution')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                institutionOption.id === editForm.get('institution')!.value?.id ? editForm.get('institution')!.value : institutionOption
+              "
+              *ngFor="let institutionOption of institutionsSharedCollection; trackBy: trackInstitutionById"
+            >
+              {{ institutionOption.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['institution'])!.invalid && (editForm.get(['institution'])!.dirty || editForm.get(['institution'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['institution'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

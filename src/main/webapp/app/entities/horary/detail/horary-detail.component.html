@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="horary">
+      <h2 data-cy="horaryDetailsHeading"><span jhiTranslate="parqueaderosApp.horary.detail.title">Horary</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ horary.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.horary.name" [ngbTooltip]="'parqueaderosApp.horary.help.name' | translate">Name</span></dt>
+        <dd>
+          <span>{{ horary.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.horary.startTime" [ngbTooltip]="'parqueaderosApp.horary.help.startTime' | translate"
+            >Start Time</span
+          >
+        </dt>
+        <dd>
+          <span>{{ horary.startTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.horary.finalHour" [ngbTooltip]="'parqueaderosApp.horary.help.finalHour' | translate"
+            >Final Hour</span
+          >
+        </dt>
+        <dd>
+          <span>{{ horary.finalHour | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.horary.status">Status</span></dt>
+        <dd>
+          <div *ngIf="horary.status">
+            <a [routerLink]="['/item-catalogue', horary.status?.id, 'view']">{{ horary.status?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.horary.contract">Contract</span></dt>
+        <dd>
+          <div *ngIf="horary.contract">
+            <a [routerLink]="['/contract', horary.contract?.id, 'view']">{{ horary.contract?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/horary', horary.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

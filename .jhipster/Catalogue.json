@@ -1,0 +1,47 @@
+{
+  "name": "Catalogue",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "nombre de catalogo",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "javadoc": "codigo de catalogo-unico",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "descripcion de catalogo"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "javadoc": "activo"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "catalogue",
+      "javadoc": "items de catalog",
+      "relationshipName": "items"
+    }
+  ],
+  "javadoc": "The Entity catalog\\n@author macf",
+  "entityTableName": "catalogue",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225533"
+}

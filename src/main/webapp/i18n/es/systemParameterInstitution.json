@@ -1,0 +1,31 @@
+{
+  "parqueaderosApp": {
+    "systemParameterInstitution": {
+      "home": {
+        "title": "System Parameter Institutions",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo System Parameter Institution",
+        "createOrEditLabel": "Crear o editar System Parameter Institution",
+        "notFound": "Ningún System Parameter Institutions encontrado"
+      },
+      "created": "Un nuevo System Parameter Institution ha sido creado con el identificador {{ param }}",
+      "updated": "Un System Parameter Institution ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un System Parameter Institution ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar System Parameter Institution {{ id }}?"
+      },
+      "detail": {
+        "title": "System Parameter Institution"
+      },
+      "id": "ID",
+      "value": "Value",
+      "active": "Active",
+      "parameter": "Parameter",
+      "institution": "Institution",
+      "help": {
+        "value": "valor del campo por empresa",
+        "active": "determinar si esta activo o no el parametro por empresa"
+      }
+    }
+  }
+}

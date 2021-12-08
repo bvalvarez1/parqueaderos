@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+    <!--
+        Added the constraints for entity Record.
+    -->
+    <changeSet id="20211019225543-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="status_id"
+                                 baseTableName="record"
+                                 constraintName="fk_record__status_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="item_catalogue"/>
+
+        <addForeignKeyConstraint baseColumnNames="tariff_vehicle_id"
+                                 baseTableName="record"
+                                 constraintName="fk_record__tariff_vehicle_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tariff_vehicle_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="institution_id"
+                                 baseTableName="record"
+                                 constraintName="fk_record__institution_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="institution"/>
+    </changeSet>
+</databaseChangeLog>

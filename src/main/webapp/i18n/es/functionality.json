@@ -1,0 +1,37 @@
+{
+  "parqueaderosApp": {
+    "functionality": {
+      "home": {
+        "title": "Functionalities",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Functionality",
+        "createOrEditLabel": "Crear o editar Functionality",
+        "notFound": "Ningún Functionalities encontrado"
+      },
+      "created": "Un nuevo Functionality ha sido creado con el identificador {{ param }}",
+      "updated": "Un Functionality ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Functionality ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Functionality {{ id }}?"
+      },
+      "detail": {
+        "title": "Functionality"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "icon": "Icon",
+      "url": "Url",
+      "active": "Active",
+      "childrens": "Childrens",
+      "parent": "Parent",
+      "help": {
+        "name": "nombre de la funcionalidad",
+        "description": "descripcion",
+        "icon": "icono para menu",
+        "url": "url de la pagina",
+        "active": "activo"
+      }
+    }
+  }
+}

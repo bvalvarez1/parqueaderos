@@ -1,0 +1,32 @@
+{
+  "parqueaderosApp": {
+    "authorityFunctionality": {
+      "home": {
+        "title": "Authority Functionalities",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Authority Functionality",
+        "createOrEditLabel": "Crear o editar Authority Functionality",
+        "notFound": "Ningún Authority Functionalities encontrado"
+      },
+      "created": "Un nuevo Authority Functionality ha sido creado con el identificador {{ param }}",
+      "updated": "Un Authority Functionality ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Authority Functionality ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Authority Functionality {{ id }}?"
+      },
+      "detail": {
+        "title": "Authority Functionality"
+      },
+      "id": "ID",
+      "authority": "Authority",
+      "priority": "Priority",
+      "active": "Active",
+      "functionality": "Functionality",
+      "help": {
+        "authority": "ROL de tabla authority",
+        "priority": "prioridad",
+        "active": "activo"
+      }
+    }
+  }
+}

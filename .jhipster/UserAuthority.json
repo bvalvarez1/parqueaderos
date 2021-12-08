@@ -1,0 +1,36 @@
+{
+  "name": "UserAuthority",
+  "fields": [
+    {
+      "fieldName": "authority",
+      "fieldType": "String",
+      "javadoc": "authority"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "javadoc": "activo"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "userAuthority",
+      "javadoc": "usuario a rol",
+      "relationshipName": "user",
+      "otherEntityField": "login"
+    }
+  ],
+  "javadoc": "The UserAuthority entity.\\n@author macf",
+  "entityTableName": "user_authority",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225546"
+}

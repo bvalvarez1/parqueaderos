@@ -1,0 +1,49 @@
+{
+  "parqueaderosApp": {
+    "recordTicket": {
+      "home": {
+        "title": "Record Tickets",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Record Ticket",
+        "createOrEditLabel": "Crear o editar Record Ticket",
+        "notFound": "Ningún Record Tickets encontrado"
+      },
+      "created": "Un nuevo Record Ticket ha sido creado con el identificador {{ param }}",
+      "updated": "Un Record Ticket ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Record Ticket ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Record Ticket {{ id }}?"
+      },
+      "detail": {
+        "title": "Record Ticket"
+      },
+      "id": "ID",
+      "initDate": "Init Date",
+      "endDate": "End Date",
+      "plate": "Plate",
+      "parkingTime": "Parking Time",
+      "taxableTotal": "Taxable Total",
+      "taxes": "Taxes",
+      "total": "Total",
+      "observation": "Observation",
+      "sequential": "Sequential",
+      "placeid": "Placeid",
+      "emitter": "Emitter",
+      "collector": "Collector",
+      "status": "Status",
+      "tariffVehicle": "Tariff Vehicle",
+      "institution": "Institution",
+      "help": {
+        "initDate": "fecha inicio de ingreso",
+        "endDate": "fecha fin de salida",
+        "plate": "placa",
+        "parkingTime": "tiempo de parqueo",
+        "taxableTotal": "subtotal a pagar",
+        "taxes": "iva a pagar",
+        "total": "iva a pagar",
+        "observation": "observacion de anulacion",
+        "sequential": "secuancia del tickets"
+      }
+    }
+  }
+}

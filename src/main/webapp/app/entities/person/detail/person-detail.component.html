@@ -1,0 +1,88 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="person">
+      <h2 data-cy="personDetailsHeading"><span jhiTranslate="parqueaderosApp.person.detail.title">Person</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ person.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.person.fullName" [ngbTooltip]="'parqueaderosApp.person.help.fullName' | translate"
+            >Full Name</span
+          >
+        </dt>
+        <dd>
+          <span>{{ person.fullName }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.person.fistName" [ngbTooltip]="'parqueaderosApp.person.help.fistName' | translate"
+            >Fist Name</span
+          >
+        </dt>
+        <dd>
+          <span>{{ person.fistName }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.person.surname" [ngbTooltip]="'parqueaderosApp.person.help.surname' | translate"
+            >Surname</span
+          >
+        </dt>
+        <dd>
+          <span>{{ person.surname }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.person.email" [ngbTooltip]="'parqueaderosApp.person.help.email' | translate">Email</span>
+        </dt>
+        <dd>
+          <span>{{ person.email }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.person.identificactionNumber"
+            [ngbTooltip]="'parqueaderosApp.person.help.identificactionNumber' | translate"
+            >Identificaction Number</span
+          >
+        </dt>
+        <dd>
+          <span>{{ person.identificactionNumber }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.person.telephoneNumber"
+            [ngbTooltip]="'parqueaderosApp.person.help.telephoneNumber' | translate"
+            >Telephone Number</span
+          >
+        </dt>
+        <dd>
+          <span>{{ person.telephoneNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.person.user">User</span></dt>
+        <dd>
+          <span>{{ person.user?.login }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.person.identificationType">Identification Type</span></dt>
+        <dd>
+          <div *ngIf="person.identificationType">
+            <a [routerLink]="['/item-catalogue', person.identificationType?.id, 'view']">{{ person.identificationType?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/person', person.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

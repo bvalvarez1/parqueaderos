@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="contract">
+      <h2 data-cy="contractDetailsHeading"><span jhiTranslate="parqueaderosApp.contract.detail.title">Contract</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ contract.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.contract.number" [ngbTooltip]="'parqueaderosApp.contract.help.number' | translate"
+            >Number</span
+          >
+        </dt>
+        <dd>
+          <span>{{ contract.number }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.contract.initDate" [ngbTooltip]="'parqueaderosApp.contract.help.initDate' | translate"
+            >Init Date</span
+          >
+        </dt>
+        <dd>
+          <span>{{ contract.initDate | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.contract.endDate" [ngbTooltip]="'parqueaderosApp.contract.help.endDate' | translate"
+            >End Date</span
+          >
+        </dt>
+        <dd>
+          <span>{{ contract.endDate | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.contract.value" [ngbTooltip]="'parqueaderosApp.contract.help.value' | translate">Value</span>
+        </dt>
+        <dd>
+          <span>{{ contract.value }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.contract.hours" [ngbTooltip]="'parqueaderosApp.contract.help.hours' | translate">Hours</span>
+        </dt>
+        <dd>
+          <span>{{ contract.hours }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.contract.status">Status</span></dt>
+        <dd>
+          <div *ngIf="contract.status">
+            <a [routerLink]="['/item-catalogue', contract.status?.id, 'view']">{{ contract.status?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.contract.contractor">Contractor</span></dt>
+        <dd>
+          <div *ngIf="contract.contractor">
+            <a [routerLink]="['/person', contract.contractor?.id, 'view']">{{ contract.contractor?.fullName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/contract', contract.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="itemCatalogue">
+      <h2 data-cy="itemCatalogueDetailsHeading"><span jhiTranslate="parqueaderosApp.itemCatalogue.detail.title">Item Catalogue</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ itemCatalogue.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.itemCatalogue.name" [ngbTooltip]="'parqueaderosApp.itemCatalogue.help.name' | translate"
+            >Name</span
+          >
+        </dt>
+        <dd>
+          <span>{{ itemCatalogue.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.itemCatalogue.code" [ngbTooltip]="'parqueaderosApp.itemCatalogue.help.code' | translate"
+            >Code</span
+          >
+        </dt>
+        <dd>
+          <span>{{ itemCatalogue.code }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.itemCatalogue.description"
+            [ngbTooltip]="'parqueaderosApp.itemCatalogue.help.description' | translate"
+            >Description</span
+          >
+        </dt>
+        <dd>
+          <span>{{ itemCatalogue.description }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.itemCatalogue.catalogCode"
+            [ngbTooltip]="'parqueaderosApp.itemCatalogue.help.catalogCode' | translate"
+            >Catalog Code</span
+          >
+        </dt>
+        <dd>
+          <span>{{ itemCatalogue.catalogCode }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.itemCatalogue.active" [ngbTooltip]="'parqueaderosApp.itemCatalogue.help.active' | translate"
+            >Active</span
+          >
+        </dt>
+        <dd>
+          <span>{{ itemCatalogue.active }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.itemCatalogue.catalogue">Catalogue</span></dt>
+        <dd>
+          <div *ngIf="itemCatalogue.catalogue">
+            <a [routerLink]="['/catalogue', itemCatalogue.catalogue?.id, 'view']">{{ itemCatalogue.catalogue?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/item-catalogue', itemCatalogue.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

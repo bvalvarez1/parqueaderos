@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="authorityFunctionality">
+      <h2 data-cy="authorityFunctionalityDetailsHeading">
+        <span jhiTranslate="parqueaderosApp.authorityFunctionality.detail.title">Authority Functionality</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ authorityFunctionality.id }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.authorityFunctionality.authority"
+            [ngbTooltip]="'parqueaderosApp.authorityFunctionality.help.authority' | translate"
+            >Authority</span
+          >
+        </dt>
+        <dd>
+          <span>{{ authorityFunctionality.authority }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.authorityFunctionality.priority"
+            [ngbTooltip]="'parqueaderosApp.authorityFunctionality.help.priority' | translate"
+            >Priority</span
+          >
+        </dt>
+        <dd>
+          <span>{{ authorityFunctionality.priority }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.authorityFunctionality.active"
+            [ngbTooltip]="'parqueaderosApp.authorityFunctionality.help.active' | translate"
+            >Active</span
+          >
+        </dt>
+        <dd>
+          <span>{{ authorityFunctionality.active }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.authorityFunctionality.functionality">Functionality</span></dt>
+        <dd>
+          <div *ngIf="authorityFunctionality.functionality">
+            <a [routerLink]="['/functionality', authorityFunctionality.functionality?.id, 'view']">{{
+              authorityFunctionality.functionality?.name
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/authority-functionality', authorityFunctionality.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

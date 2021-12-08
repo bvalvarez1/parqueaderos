@@ -1,0 +1,38 @@
+{
+  "name": "UserAuthorityInstitution",
+  "fields": [
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "javadoc": "activo"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "institution",
+      "otherEntityRelationshipName": "userAuthorityInstitution",
+      "javadoc": "institution a rol",
+      "relationshipName": "institution",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "userAuthority",
+      "otherEntityRelationshipName": "userAuthorityInstitution",
+      "javadoc": "user authority a institution",
+      "relationshipName": "userAuthority"
+    }
+  ],
+  "javadoc": "The UserAuthorityInstitution entity.\\n@author macf",
+  "entityTableName": "user_authority_institution",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225547"
+}

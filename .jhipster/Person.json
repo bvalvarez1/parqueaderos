@@ -1,0 +1,67 @@
+{
+  "name": "Person",
+  "fields": [
+    {
+      "fieldName": "fullName",
+      "fieldType": "String",
+      "javadoc": "nombres completo"
+    },
+    {
+      "fieldName": "fistName",
+      "fieldType": "String",
+      "javadoc": "nombre",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "surname",
+      "fieldType": "String",
+      "javadoc": "apellido"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "javadoc": "email"
+    },
+    {
+      "fieldName": "identificactionNumber",
+      "fieldType": "String",
+      "javadoc": "numero identificacion",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telephoneNumber",
+      "fieldType": "String",
+      "javadoc": "numero telefono convencional"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "person",
+      "javadoc": "usuario",
+      "relationshipName": "user",
+      "otherEntityField": "login"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "itemCatalogue",
+      "otherEntityRelationshipName": "person",
+      "relationshipValidateRules": "required",
+      "javadoc": "tipo de identificacion",
+      "relationshipName": "identificationType",
+      "otherEntityField": "name"
+    }
+  ],
+  "javadoc": "The Person entity.\\n@author macf",
+  "entityTableName": "person",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225538"
+}

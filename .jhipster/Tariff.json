@@ -1,0 +1,45 @@
+{
+  "name": "Tariff",
+  "fields": [
+    {
+      "fieldName": "initialDate",
+      "fieldType": "LocalDate",
+      "javadoc": "fecha inicial de tarifa",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "finalDate",
+      "fieldType": "LocalDate",
+      "javadoc": "fecha final de tarifa"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "tariffVehicleType",
+      "otherEntityRelationshipName": "tariff",
+      "javadoc": "tarifa de acuerdo al vehiculo",
+      "relationshipName": "tarifs"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "institution",
+      "otherEntityRelationshipName": "tariff",
+      "relationshipValidateRules": "required",
+      "javadoc": "institution of tariff",
+      "relationshipName": "institution",
+      "otherEntityField": "name"
+    }
+  ],
+  "javadoc": "The Tariff entity.\\n@author Rene",
+  "entityTableName": "tariff",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225544"
+}

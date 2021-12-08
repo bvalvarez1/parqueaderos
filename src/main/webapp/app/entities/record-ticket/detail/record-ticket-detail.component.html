@@ -1,0 +1,142 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="recordTicket">
+      <h2 data-cy="recordTicketDetailsHeading"><span jhiTranslate="parqueaderosApp.recordTicket.detail.title">Record Ticket</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ recordTicket.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.recordTicket.initDate" [ngbTooltip]="'parqueaderosApp.recordTicket.help.initDate' | translate"
+            >Init Date</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.initDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.recordTicket.endDate" [ngbTooltip]="'parqueaderosApp.recordTicket.help.endDate' | translate"
+            >End Date</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.endDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.recordTicket.plate" [ngbTooltip]="'parqueaderosApp.recordTicket.help.plate' | translate"
+            >Plate</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.plate }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.recordTicket.parkingTime"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.parkingTime' | translate"
+            >Parking Time</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.parkingTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.recordTicket.taxableTotal"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.taxableTotal' | translate"
+            >Taxable Total</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.taxableTotal }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.recordTicket.taxes" [ngbTooltip]="'parqueaderosApp.recordTicket.help.taxes' | translate"
+            >Taxes</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.taxes }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.recordTicket.total" [ngbTooltip]="'parqueaderosApp.recordTicket.help.total' | translate"
+            >Total</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.total }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.recordTicket.observation"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.observation' | translate"
+            >Observation</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.observation }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.recordTicket.sequential"
+            [ngbTooltip]="'parqueaderosApp.recordTicket.help.sequential' | translate"
+            >Sequential</span
+          >
+        </dt>
+        <dd>
+          <span>{{ recordTicket.sequential }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.recordTicket.placeid">Placeid</span></dt>
+        <dd>
+          <div *ngIf="recordTicket.placeid">
+            <a [routerLink]="['/place', recordTicket.placeid?.id, 'view']">{{ recordTicket.placeid?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.recordTicket.emitter">Emitter</span></dt>
+        <dd>
+          <span>{{ recordTicket.emitter?.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.recordTicket.collector">Collector</span></dt>
+        <dd>
+          <span>{{ recordTicket.collector?.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.recordTicket.status">Status</span></dt>
+        <dd>
+          <div *ngIf="recordTicket.status">
+            <a [routerLink]="['/item-catalogue', recordTicket.status?.id, 'view']">{{ recordTicket.status?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.recordTicket.tariffVehicle">Tariff Vehicle</span></dt>
+        <dd>
+          <div *ngIf="recordTicket.tariffVehicle">
+            <a [routerLink]="['/tariff-vehicle-type', recordTicket.tariffVehicle?.id, 'view']">{{
+              recordTicket.tariffVehicle?.maxValue
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.recordTicket.institution">Institution</span></dt>
+        <dd>
+          <div *ngIf="recordTicket.institution">
+            <a [routerLink]="['/institution', recordTicket.institution?.id, 'view']">{{ recordTicket.institution?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/record-ticket', recordTicket.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

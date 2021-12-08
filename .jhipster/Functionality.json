@@ -1,0 +1,60 @@
+{
+  "name": "Functionality",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "nombre de la funcionalidad",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "descripcion"
+    },
+    {
+      "fieldName": "icon",
+      "fieldType": "String",
+      "javadoc": "icono para menu"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String",
+      "javadoc": "url de la pagina",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "80"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "javadoc": "activo",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "functionality",
+      "otherEntityRelationshipName": "parent",
+      "javadoc": "childrens functionalities",
+      "relationshipName": "childrens"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "functionality",
+      "otherEntityRelationshipName": "childrens",
+      "relationshipName": "parent"
+    }
+  ],
+  "javadoc": "The Functionality entity.\\n@author macf",
+  "entityTableName": "functionality",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211019225539"
+}

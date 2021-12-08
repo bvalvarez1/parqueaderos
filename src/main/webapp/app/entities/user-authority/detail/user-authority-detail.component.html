@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="userAuthority">
+      <h2 data-cy="userAuthorityDetailsHeading"><span jhiTranslate="parqueaderosApp.userAuthority.detail.title">User Authority</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ userAuthority.id }}</span>
+        </dd>
+        <dt>
+          <span
+            jhiTranslate="parqueaderosApp.userAuthority.authority"
+            [ngbTooltip]="'parqueaderosApp.userAuthority.help.authority' | translate"
+            >Authority</span
+          >
+        </dt>
+        <dd>
+          <span>{{ userAuthority.authority }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="parqueaderosApp.userAuthority.active" [ngbTooltip]="'parqueaderosApp.userAuthority.help.active' | translate"
+            >Active</span
+          >
+        </dt>
+        <dd>
+          <span>{{ userAuthority.active }}</span>
+        </dd>
+        <dt><span jhiTranslate="parqueaderosApp.userAuthority.user">User</span></dt>
+        <dd>
+          <span>{{ userAuthority.user?.login }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/user-authority', userAuthority.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

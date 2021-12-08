@@ -1,0 +1,252 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-82">
+        <addUniqueConstraint columnNames="recordticketid_id" constraintName="UC_RECEIPTRECORDTICKETID_ID_COL" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-83">
+        <addUniqueConstraint columnNames="placeid_id" constraintName="UC_RECORD_TICKETPLACEID_ID_COL" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-1">
+        <alterSequence sequenceName="sequence_generator"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-2">
+        <setTableRemarks tableName="authority_functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-3">
+        <setTableRemarks tableName="catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-4">
+        <setTableRemarks tableName="functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-5">
+        <setTableRemarks tableName="horary"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-6">
+        <setTableRemarks tableName="institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-7">
+        <setTableRemarks tableName="item_catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-8">
+        <setTableRemarks tableName="person"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-9">
+        <setTableRemarks tableName="place"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-10">
+        <setTableRemarks tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-11">
+        <setTableRemarks tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-12">
+        <setTableRemarks tableName="system_parameter_institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-13">
+        <setTableRemarks tableName="system_parameters"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-14">
+        <setTableRemarks tableName="tariff"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-15">
+        <setTableRemarks tableName="tariff_vehicle_type"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-16">
+        <setTableRemarks tableName="user_authority"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-17">
+        <setTableRemarks tableName="user_authority_institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-18">
+        <setColumnRemarks columnName="active" tableName="authority_functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-19">
+        <setColumnRemarks columnName="active" tableName="catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-20">
+        <setColumnRemarks columnName="active" tableName="functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-21">
+        <setColumnRemarks columnName="active" tableName="item_catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-22">
+        <setColumnRemarks columnName="active" tableName="system_parameter_institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-23">
+        <setColumnRemarks columnName="active" tableName="user_authority"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-24">
+        <setColumnRemarks columnName="active" tableName="user_authority_institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-25">
+        <setColumnRemarks columnName="address" tableName="institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-26">
+        <setColumnRemarks columnName="authority" tableName="authority_functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-27">
+        <setColumnRemarks columnName="authority" tableName="user_authority"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-28">
+        <setColumnRemarks columnName="authorization_number" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-29">
+        <setColumnRemarks columnName="catalog_code" tableName="item_catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-30">
+        <setColumnRemarks columnName="clase" tableName="system_parameters"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-31">
+        <setColumnRemarks columnName="code" tableName="catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-32">
+        <setColumnRemarks columnName="code" tableName="item_catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-33">
+        <setColumnRemarks columnName="code" tableName="system_parameters"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-34">
+        <setColumnRemarks columnName="description" tableName="catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-35">
+        <setColumnRemarks columnName="description" tableName="functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-36">
+        <setColumnRemarks columnName="description" tableName="item_catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-37">
+        <setColumnRemarks columnName="email" tableName="person"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-38">
+        <setColumnRemarks columnName="end_date" tableName="contract"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-39">
+        <setColumnRemarks columnName="end_date" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-40">
+        <setColumnRemarks columnName="final_date" tableName="tariff"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-41">
+        <setColumnRemarks columnName="final_hour" tableName="horary"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-42">
+        <setColumnRemarks columnName="fist_name" tableName="person"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-43">
+        <setColumnRemarks columnName="full_name" tableName="person"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-44">
+        <setColumnRemarks columnName="hours" tableName="contract"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-45">
+        <setColumnRemarks columnName="icon" tableName="functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-46">
+        <setColumnRemarks columnName="identificaction_number" tableName="person"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-47">
+        <setColumnRemarks columnName="init_date" tableName="contract"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-48">
+        <setColumnRemarks columnName="init_date" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-49">
+        <setColumnRemarks columnName="initial_date" tableName="tariff"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-50">
+        <setColumnRemarks columnName="latitude" tableName="institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-51">
+        <setColumnRemarks columnName="longitude" tableName="institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-52">
+        <setColumnRemarks columnName="max_value" tableName="tariff_vehicle_type"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-53">
+        <setColumnRemarks columnName="min_value" tableName="tariff_vehicle_type"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-54">
+        <setColumnRemarks columnName="name" tableName="catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-55">
+        <setColumnRemarks columnName="name" tableName="functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-56">
+        <setColumnRemarks columnName="name" tableName="horary"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-57">
+        <setColumnRemarks columnName="name" tableName="institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-58">
+        <setColumnRemarks columnName="name" tableName="item_catalogue"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-59">
+        <setColumnRemarks columnName="name" tableName="system_parameters"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-60">
+        <setColumnRemarks columnName="number" tableName="contract"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-61">
+        <setColumnRemarks columnName="number" tableName="place"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-62">
+        <setColumnRemarks columnName="parking_time" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-63">
+        <setColumnRemarks columnName="places_number" tableName="institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-64">
+        <setColumnRemarks columnName="plate" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-65">
+        <setColumnRemarks columnName="priority" tableName="authority_functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-66">
+        <setColumnRemarks columnName="receiptdate" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-67">
+        <setColumnRemarks columnName="ruc" tableName="institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-68">
+        <setColumnRemarks columnName="sequential" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-69">
+        <setColumnRemarks columnName="sriaccesskey" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-70">
+        <setColumnRemarks columnName="sriauthorizationdate" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-71">
+        <setColumnRemarks columnName="start_time" tableName="horary"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-72">
+        <setColumnRemarks columnName="status" tableName="receipt"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-73">
+        <setColumnRemarks columnName="surname" tableName="person"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-74">
+        <setColumnRemarks columnName="taxable_total" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-75">
+        <setColumnRemarks columnName="taxes" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-76">
+        <setColumnRemarks columnName="telephone_number" tableName="person"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-77">
+        <setColumnRemarks columnName="total" tableName="record_ticket"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-78">
+        <setColumnRemarks columnName="url" tableName="functionality"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-79">
+        <setColumnRemarks columnName="value" tableName="contract"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-80">
+        <setColumnRemarks columnName="value" tableName="system_parameter_institution"/>
+    </changeSet>
+    <changeSet author="manuelcartuche (generated)" id="1635969833543-81">
+        <setColumnRemarks columnName="value" tableName="tariff_vehicle_type"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,189 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-person-heading" data-cy="PersonCreateUpdateHeading" jhiTranslate="parqueaderosApp.person.home.createOrEditLabel">
+        Create or edit a Person
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.person.fullName"
+            for="field_fullName"
+            [ngbTooltip]="'parqueaderosApp.person.help.fullName' | translate"
+            >Full Name</label
+          >
+          <input type="text" class="form-control" name="fullName" id="field_fullName" data-cy="fullName" formControlName="fullName" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.person.fistName"
+            for="field_fistName"
+            [ngbTooltip]="'parqueaderosApp.person.help.fistName' | translate"
+            >Fist Name</label
+          >
+          <input type="text" class="form-control" name="fistName" id="field_fistName" data-cy="fistName" formControlName="fistName" />
+          <div *ngIf="editForm.get('fistName')!.invalid && (editForm.get('fistName')!.dirty || editForm.get('fistName')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('fistName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.person.surname"
+            for="field_surname"
+            [ngbTooltip]="'parqueaderosApp.person.help.surname' | translate"
+            >Surname</label
+          >
+          <input type="text" class="form-control" name="surname" id="field_surname" data-cy="surname" formControlName="surname" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.person.email"
+            for="field_email"
+            [ngbTooltip]="'parqueaderosApp.person.help.email' | translate"
+            >Email</label
+          >
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.person.identificactionNumber"
+            for="field_identificactionNumber"
+            [ngbTooltip]="'parqueaderosApp.person.help.identificactionNumber' | translate"
+            >Identificaction Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="identificactionNumber"
+            id="field_identificactionNumber"
+            data-cy="identificactionNumber"
+            formControlName="identificactionNumber"
+          />
+          <div
+            *ngIf="
+              editForm.get('identificactionNumber')!.invalid &&
+              (editForm.get('identificactionNumber')!.dirty || editForm.get('identificactionNumber')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('identificactionNumber')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="parqueaderosApp.person.telephoneNumber"
+            for="field_telephoneNumber"
+            [ngbTooltip]="'parqueaderosApp.person.help.telephoneNumber' | translate"
+            >Telephone Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="telephoneNumber"
+            id="field_telephoneNumber"
+            data-cy="telephoneNumber"
+            formControlName="telephoneNumber"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.person.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="parqueaderosApp.person.identificationType" for="field_identificationType"
+            >Identification Type</label
+          >
+          <select
+            class="form-control"
+            id="field_identificationType"
+            data-cy="identificationType"
+            name="identificationType"
+            formControlName="identificationType"
+          >
+            <option *ngIf="!editForm.get('identificationType')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                itemCatalogueOption.id === editForm.get('identificationType')!.value?.id
+                  ? editForm.get('identificationType')!.value
+                  : itemCatalogueOption
+              "
+              *ngFor="let itemCatalogueOption of itemCataloguesSharedCollection; trackBy: trackItemCatalogueById"
+            >
+              {{ itemCatalogueOption.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['identificationType'])!.invalid &&
+            (editForm.get(['identificationType'])!.dirty || editForm.get(['identificationType'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['identificationType'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

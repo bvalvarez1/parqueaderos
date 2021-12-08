@@ -1,0 +1,341 @@
+/**
+ * The Entity catalog
+ * @author macf
+ */
+entity Catalogue {
+    /** nombre de catalogo */
+    name String required
+    /** codigo de catalogo-unico */
+    code String required unique
+    /** descripcion de catalogo */
+    description String
+    /** activo */
+    active Boolean
+}
+
+
+/**
+ * The Place entity.
+ * @author A true hipster
+ */
+entity Place {
+    /** number */
+    number String required
+}
+
+/**
+ * The Entity entity.
+ * @author A true hipster
+ */
+entity ItemCatalogue {
+    /** nombre de itemcatalogo */
+    name String required
+    /** codigo de itemcatalogo */
+    code String required
+    /** descripcion de itemcatalogo */
+    description String
+    /** codigo de catalogo*/
+    catalogCode String required
+    /** activo */
+    active Boolean
+}
+
+/**
+ * The Institution entity.
+ * @author macf
+ */
+entity Institution {
+    /** nombre de la empresa/institucion */
+    name String required
+    /** Direccion */
+    address String
+    /** espacios disponibles */
+    placesNumber  Integer required
+    /** ruc de la empresa */
+    ruc String required
+    /** latitud */
+    latitude BigDecimal
+    /** longitud */
+    longitude BigDecimal
+    /** for sequential */
+    acronym String required
+    /** for sequential */
+    sequencename String required
+}
+
+/**
+ * The Entity SystemParameters.
+ * @author macf
+ */
+entity SystemParameters {
+    /** nombre */
+    name String required
+    /** codigo */
+    code String required unique
+    /** clase de java */
+    clase String required
+}
+
+/**
+ * The Entity SystemParameterInstitution.
+ * @author macf
+ */
+entity SystemParameterInstitution {
+    /** valor del campo por empresa */
+    value String required
+    /** determinar si esta activo o no el parametro por empresa **/
+    active Boolean
+}
+
+/**
+ * The Person entity.
+ * @author macf
+ */
+entity Person {
+    /** nombres completo */
+    fullName String
+    /** nombre */
+    fistName String required
+    /** apellido */
+    surname String
+    /** email */
+    email String
+    /** numero identificacion */
+    identificactionNumber String required
+    /** numero telefono convencional */
+    telephoneNumber String
+}
+
+/**
+ * The Functionality entity.
+ * @author macf
+ */
+entity Functionality {
+    /** nombre de la funcionalidad */
+    name String required
+    /** descripcion */
+    description String
+    /** icono para menu*/
+    icon String
+    /** url de la pagina */
+    url String maxlength(80)
+    /** activo */
+    active Boolean required
+}
+
+
+/**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+ * The Entity AuthorityFunctionality.
+ * @author macf
+ */
+entity AuthorityFunctionality {
+    /** ROL de tabla authority */
+    authority String required
+    /** prioridad */
+    priority Integer required
+    /** activo */
+    active Boolean
+}
+
+
+
+/* The Entity Contract.
+ * @author macf
+ */
+entity Contract {
+    /** number */
+    number String required
+    /** inicio del contrato */
+    initDate LocalDate required
+    /** fin del contrato */
+    endDate LocalDate required
+    /** valor del contrato */
+    value BigDecimal required
+    /** hours */
+    hours  BigDecimal
+}
+
+
+/**
+ * The Horary entity.
+ * @author macf
+ */
+entity Horary {
+    /** name */
+    name String required
+    /** startTime */
+    startTime Instant required
+    /** finalHour */
+    finalHour Instant required
+}
+
+/**
+ * The Entity RecordTicket.
+ * @author Renmacfe
+ */
+entity RecordTicket {
+    /** fecha inicio de ingreso */
+    initDate Instant required
+    /** fecha fin de salida */
+    endDate Instant
+    /** placa */
+    plate String
+    /** tiempo de parqueo */
+    parkingTime Instant
+    /** subtotal a pagar */
+    taxableTotal BigDecimal
+    /** iva a pagar */
+    taxes BigDecimal
+    /** iva a pagar  */
+    total BigDecimal
+    /** observacion de anulacion */
+    observation String
+    /** secuancia del tickets */
+    sequential String
+}
+
+/**
+ * The Tariff entity.
+ * @author Rene
+ */
+entity Tariff {
+    /** fecha inicial de tarifa */
+    initialDate LocalDate required
+    /** fecha final de tarifa */
+    finalDate  LocalDate
+}
+
+/**
+ * The TariffVehicleType entity.
+ * @author macf
+ */
+entity TariffVehicleType {
+    /** valor minimo */
+    minValue Integer required
+    /** valor maximo */
+    maxValue Integer required
+    /** valor tarifa */
+    value BigDecimal required
+
+}
+
+/**
+ * The UserAuthority entity.
+ * @author macf
+ */
+entity UserAuthority {
+    /** authority */
+    authority String 
+    /** activo */
+    active Boolean
+}
+
+
+/**
+ * The UserAuthorityInstitution entity.
+ * @author macf
+ */
+entity UserAuthorityInstitution {
+    /** activo */
+    active Boolean
+}
+
+
+/**
+ * The Receipt entity.
+ * @author A true hipster
+ */
+entity Receipt {
+    /** autorizacion del SRI */
+    authorizationNumber String
+    /** secuencia de la factura */
+    sequential String
+    /** estado de la factura */
+    status String
+    /** clave de acceso sri */
+    sriaccesskey String
+    /** fecha autorizacion sri */
+    sriauthorizationdate LocalDate
+    /** fecha emision factura */
+    receiptdate LocalDate
+}
+
+
+relationship OneToOne {
+    Receipt{recordticketid} to RecordTicket
+    RecordTicket{placeid} to Place
+    RecordTicket{emitter} to User
+    RecordTicket{collector} to User
+}
+
+/**
+ * One to many relationship.
+ */
+relationship OneToMany {
+    /** items de catalog */
+    Catalogue{items} to ItemCatalogue
+     /** horarios de contract */
+    Contract{horaries} to Horary
+    /** tarifa de acuerdo al vehiculo */
+    Tariff{tarifs} to TariffVehicleType
+    /** childrens functionalities */
+    Functionality{childrens} to Functionality{parent}
+    /** places of institution */
+    Institution{places} to Place
+}
+
+
+/**
+ * Many to one relationship.
+ */
+relationship ManyToOne {
+    
+    /** usuario */
+    Person{user(login)} to User
+    /** tipo de identificacion */
+    Person{identificationType(name) required} to ItemCatalogue
+
+    /** estado del contrato */
+    Contract{status(name) required} to ItemCatalogue
+    /** persona del contrato */
+    Contract{contractor(fullName) required} to Person
+     /** estado of horario */
+    Horary{status(name) required} to ItemCatalogue
+
+    /** institution of tariff */
+    Tariff{institution(name) required} to Institution
+    /** vehicle type */
+    TariffVehicleType{vehicleType(name) required} to ItemCatalogue
+    
+
+
+    /** RecordTicket status */
+    RecordTicket{status(name) required} to ItemCatalogue
+    /** RecordTicket tariff applied */
+    RecordTicket{tariffVehicle(maxValue) required} to TariffVehicleType
+     /**  RecordTicket institution */
+    RecordTicket{institution(name) required} to Institution
+     /** parameter of institution */
+    SystemParameterInstitution{parameter(name) required} to SystemParameters
+    /** institution of parameter */
+    SystemParameterInstitution{institution(name) required} to Institution
+    /**	Funcionalidad asignada al rol */
+    AuthorityFunctionality {functionality(name)} to Functionality
+    /**	usuario a rol */
+    UserAuthority {user(login)} to User
+    /**	institution a rol */
+    UserAuthorityInstitution {institution(name)} to Institution
+    /**	user authority a institution */
+    UserAuthorityInstitution {userAuthority} to UserAuthority
+    /**	Funcionalidad asignada a rol */
+    AuthorityFunctionality {functionality(name) required} to Functionality
+    /** canton del parqueadero */
+    Institution{canton(name)} to ItemCatalogue
+    /** estado del lugar de estacionamiento */
+    Place{status(name) } to ItemCatalogue
+}
+
+
+paginate * with pagination
+service all with serviceImpl
+dto * with mapstruct

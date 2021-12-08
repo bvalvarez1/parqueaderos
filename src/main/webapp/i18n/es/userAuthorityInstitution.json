@@ -1,0 +1,29 @@
+{
+  "parqueaderosApp": {
+    "userAuthorityInstitution": {
+      "home": {
+        "title": "User Authority Institutions",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo User Authority Institution",
+        "createOrEditLabel": "Crear o editar User Authority Institution",
+        "notFound": "Ningún User Authority Institutions encontrado"
+      },
+      "created": "Un nuevo User Authority Institution ha sido creado con el identificador {{ param }}",
+      "updated": "Un User Authority Institution ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un User Authority Institution ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar User Authority Institution {{ id }}?"
+      },
+      "detail": {
+        "title": "User Authority Institution"
+      },
+      "id": "ID",
+      "active": "Active",
+      "institution": "Institution",
+      "userAuthority": "User Authority",
+      "help": {
+        "active": "activo"
+      }
+    }
+  }
+}
