@@ -223,6 +223,28 @@ ui bootstrap tweaks
   border-color: #bd2130;
 }
 
+.placeReserved {
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  margin: 5px;
+  text-align: center;
+  color: #fff;
+  background-color: #4cc823;
+  border-color: #4cc823;
+}
+
+.indicator {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.nameIndicator {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 5px;
+}
+
 .width50P {
   width: 50%;
   display: inline-block;
@@ -282,4 +304,13 @@ ui bootstrap tweaks
 
 .total {
   font-size: 40px !important;
+}
+
+.labelInfo {
+  background: #2d70aa;
+  color: #fff;
+  margin-bottom: 5px;
+}
+.space {
+  height: 20px;
 }

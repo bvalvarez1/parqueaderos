@@ -33,18 +33,10 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="name">
-            <span jhiTranslate="parqueaderosApp.catalogue.name">Name</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="code">
-            <span jhiTranslate="parqueaderosApp.catalogue.code">Code</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="description">
-            <span jhiTranslate="parqueaderosApp.catalogue.description">Description</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="active">
-            <span jhiTranslate="parqueaderosApp.catalogue.active">Active</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" jhiSortBy="name"><span>Nombre</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="code"><span>Código</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="description"><span>Descripción</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="active"><span>Activo</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -56,7 +48,10 @@
           <td>{{ catalogue.name }}</td>
           <td>{{ catalogue.code }}</td>
           <td>{{ catalogue.description }}</td>
-          <td>{{ catalogue.active }}</td>
+          <td>
+            <div *ngIf="catalogue.active; else templateName">SI</div>
+            <ng-template #templateName> NO </ng-template>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

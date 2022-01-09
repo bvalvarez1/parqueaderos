@@ -66,7 +66,10 @@
           </td>
           <td>
             <div *ngIf="tariffVehicleType.tariff">
-              <a [routerLink]="['/tariff', tariffVehicleType.tariff?.id, 'view']">{{ tariffVehicleType.tariff?.id }}</a>
+              <a [routerLink]="['/tariff', tariffVehicleType.tariff?.id, 'view']">
+                Parq.: {{ tariffVehicleType.tariff.institution?.name }}<br />
+                De: {{ tariffVehicleType.tariff?.initialDate }} al {{ tariffVehicleType.tariff?.finalDate }}
+              </a>
             </div>
           </td>
           <td class="text-right">

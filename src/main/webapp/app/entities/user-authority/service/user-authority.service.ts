@@ -41,6 +41,10 @@ export class UserAuthorityService {
     return this.http.get<IUserAuthority[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  findByUserid(userid: number): Observable<EntityResponseType> {
+    return this.http.post<IUserAuthority>(`${this.resourceUrl}/findByUserid`, userid, { observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

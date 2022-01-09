@@ -2,7 +2,10 @@ package ec.loja.web.rest;
 
 import ec.loja.repository.UserAuthorityRepository;
 import ec.loja.service.UserAuthorityService;
+import ec.loja.service.UserService;
+import ec.loja.service.dto.JHIUserAuthorityDTO;
 import ec.loja.service.dto.UserAuthorityDTO;
+import ec.loja.service.dto.UserDTO;
 import ec.loja.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -41,9 +44,16 @@ public class UserAuthorityResource {
 
     private final UserAuthorityRepository userAuthorityRepository;
 
-    public UserAuthorityResource(UserAuthorityService userAuthorityService, UserAuthorityRepository userAuthorityRepository) {
+    private final UserService userService;
+
+    public UserAuthorityResource(
+        UserAuthorityService userAuthorityService,
+        UserAuthorityRepository userAuthorityRepository,
+        UserService userService
+    ) {
         this.userAuthorityService = userAuthorityService;
         this.userAuthorityRepository = userAuthorityRepository;
+        this.userService = userService;
     }
 
     /**
@@ -146,6 +156,7 @@ public class UserAuthorityResource {
     public ResponseEntity<List<UserAuthorityDTO>> getAllUserAuthorities(Pageable pageable) {
         log.debug("REST request to get a page of UserAuthorities");
         Page<UserAuthorityDTO> page = userAuthorityService.findAll(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -177,5 +188,27 @@ public class UserAuthorityResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/user-authorities/findByUserid")
+    public ResponseEntity<UserAuthorityDTO> findByUserid(@RequestBody Long userid) throws URISyntaxException {
+        log.debug("REST request to findByUserid UserAuthority : {}", userid);
+        if (userid == null) {
+            throw new BadRequestAlertException("A new userAuthority cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        JHIUserAuthorityDTO jhiuserauthority = userAuthorityService.findByUserId(userid);
+        UserDTO userDTO = userService.findOne(userid).get();
+
+        UserAuthorityDTO uadto = new UserAuthorityDTO();
+        uadto.setAuthority(jhiuserauthority.getAuthorityName());
+        uadto.setActive(Boolean.TRUE);
+        uadto.setUser(userDTO);
+
+        uadto = userAuthorityService.save(uadto);
+
+        return ResponseEntity
+            .created(new URI("/api/user-authorities/findByUserid" + uadto.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, uadto.getId().toString()))
+            .body(uadto);
     }
 }

@@ -126,7 +126,8 @@
               [ngValue]="tariffOption.id === editForm.get('tariff')!.value?.id ? editForm.get('tariff')!.value : tariffOption"
               *ngFor="let tariffOption of tariffsSharedCollection; trackBy: trackTariffById"
             >
-              {{ tariffOption.id }}
+              {{ tariffOption.institution?.name }} De: {{ tariffOption.initialDate | formatMediumDate }} al
+              {{ tariffOption.finalDate | formatMediumDate }}
             </option>
           </select>
         </div>

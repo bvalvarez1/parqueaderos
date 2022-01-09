@@ -9,8 +9,10 @@ import { IUserAuthorityInstitution, UserAuthorityInstitution } from '../user-aut
 import { UserAuthorityInstitutionService } from '../service/user-authority-institution.service';
 import { IInstitution } from 'app/entities/institution/institution.model';
 import { InstitutionService } from 'app/entities/institution/service/institution.service';
-import { IUserAuthority } from 'app/entities/user-authority/user-authority.model';
+import { IUserAuthority, UserAuthority } from 'app/entities/user-authority/user-authority.model';
 import { UserAuthorityService } from 'app/entities/user-authority/service/user-authority.service';
+import { UserService } from 'app/entities/user/user.service';
+import { IUser } from 'app/admin/user-management/user-management.model';
 
 @Component({
   selector: 'jhi-user-authority-institution-update',
@@ -21,18 +23,21 @@ export class UserAuthorityInstitutionUpdateComponent implements OnInit {
 
   institutionsSharedCollection: IInstitution[] = [];
   userAuthoritiesSharedCollection: IUserAuthority[] = [];
+  userSharedCollection: IUser[] = [];
+  userAuthority: IUserAuthority | any;
 
   editForm = this.fb.group({
     id: [],
     active: [],
     institution: [],
-    userAuthority: [],
+    user: [],
   });
 
   constructor(
     protected userAuthorityInstitutionService: UserAuthorityInstitutionService,
     protected institutionService: InstitutionService,
     protected userAuthorityService: UserAuthorityService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -52,10 +57,41 @@ export class UserAuthorityInstitutionUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const userAuthorityInstitution = this.createFromForm();
+
     if (userAuthorityInstitution.id !== undefined) {
-      this.subscribeToSaveResponse(this.userAuthorityInstitutionService.update(userAuthorityInstitution));
+      //  this.subscribeToSaveResponse(this.userAuthorityInstitutionService.update(userAuthorityInstitution));
     } else {
-      this.subscribeToSaveResponse(this.userAuthorityInstitutionService.create(userAuthorityInstitution));
+      //crear el user authority
+      this.userAuthorityService.findByUserid(userAuthorityInstitution.user!.id!).subscribe(
+        (res: HttpResponse<IUserAuthority>) => {
+          this.userAuthority = res.body;
+          // eslint-disable-next-line no-console
+          console.log(res.body);
+          const userAuthInst = new UserAuthorityInstitution();
+          userAuthInst.active = userAuthorityInstitution.active;
+          userAuthInst.institution = userAuthorityInstitution.institution;
+          userAuthInst.userAuthority = this.userAuthority;
+          this.subscribeToSaveResponse(this.userAuthorityInstitutionService.create(userAuthInst));
+        },
+        () => {
+          // eslint-disable-next-line no-console
+          console.log('error');
+        }
+      );
+
+      // eslint-disable-next-line no-console
+      console.log('//');
+
+      // eslint-disable-next-line no-console
+      console.log(this.userAuthority);
+      /*
+      this.userAuthorityService.create(userAuthority);
+ 
+      id: this.editForm.get(['id'])!.value,
+      authority: this.editForm.get(['authority'])!.value,
+      active: this.editForm.get(['active'])!.value,p[]p]    */
+
+      // this.subscribeToSaveResponse(this.userAuthorityInstitutionService.create(userAuthorityInstitution));
     }
   }
 
@@ -64,6 +100,10 @@ export class UserAuthorityInstitutionUpdateComponent implements OnInit {
   }
 
   trackUserAuthorityById(index: number, item: IUserAuthority): number {
+    return item.id!;
+  }
+
+  trackUserById(index: number, item: IUser): number {
     return item.id!;
   }
 
@@ -102,6 +142,8 @@ export class UserAuthorityInstitutionUpdateComponent implements OnInit {
       this.userAuthoritiesSharedCollection,
       userAuthorityInstitution.userAuthority
     );
+
+    this.userSharedCollection = this.userService.addUserToCollectionIfMissing(this.userSharedCollection, userAuthorityInstitution.user);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -115,15 +157,11 @@ export class UserAuthorityInstitutionUpdateComponent implements OnInit {
       )
       .subscribe((institutions: IInstitution[]) => (this.institutionsSharedCollection = institutions));
 
-    this.userAuthorityService
+    this.userService
       .query()
-      .pipe(map((res: HttpResponse<IUserAuthority[]>) => res.body ?? []))
-      .pipe(
-        map((userAuthorities: IUserAuthority[]) =>
-          this.userAuthorityService.addUserAuthorityToCollectionIfMissing(userAuthorities, this.editForm.get('userAuthority')!.value)
-        )
-      )
-      .subscribe((userAuthorities: IUserAuthority[]) => (this.userAuthoritiesSharedCollection = userAuthorities));
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .subscribe((users: IUser[]) => (this.userSharedCollection = users));
   }
 
   protected createFromForm(): IUserAuthorityInstitution {
@@ -132,7 +170,8 @@ export class UserAuthorityInstitutionUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       active: this.editForm.get(['active'])!.value,
       institution: this.editForm.get(['institution'])!.value,
-      userAuthority: this.editForm.get(['userAuthority'])!.value,
+      //userAuthority: this.editForm.get(['userAuthority'])!.value,
+      user: this.editForm.get(['user'])!.value,
     };
   }
 }

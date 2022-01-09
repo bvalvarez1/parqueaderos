@@ -113,7 +113,7 @@
               [ngValue]="catalogueOption.id === editForm.get('catalogue')!.value?.id ? editForm.get('catalogue')!.value : catalogueOption"
               *ngFor="let catalogueOption of cataloguesSharedCollection; trackBy: trackCatalogueById"
             >
-              {{ catalogueOption.id }}
+              {{ catalogueOption.name }}
             </option>
           </select>
         </div>

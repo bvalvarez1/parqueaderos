@@ -17,8 +17,10 @@ import { IInstitutionTarrif } from '../parkingtariff.model';
 import { ITariffVehicleType } from 'app/entities/tariff-vehicle-type/tariff-vehicle-type.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RecordTicketService } from 'app/entities/record-ticket/service/record-ticket.service';
-import { IRecordTicket } from 'app/entities/record-ticket/record-ticket.model';
+import { IRecordTicket, RecordTicket } from 'app/entities/record-ticket/record-ticket.model';
 import { TicketDeleteDialogComponent } from '../delete/ticket-delete-dialog.component';
+import { CompileNgModuleMetadata } from '@angular/compiler';
+import { ConfirmReserveDialogComponent } from './reserve/confirmreserve-dialog.component';
 @Component({
   selector: 'jhi-parking',
   templateUrl: './parking.component.html',
@@ -29,7 +31,7 @@ export class ParkingComponent implements OnInit {
   placesTickets?: IPlaces[];
   placesStatusTotal?: IPlaceStatusTotal[];
   freePlaces?: number;
-  busyPlaces?: number;
+  busyPlaces?: number | 0;
   institutionName?: string;
   criteria?: string;
   institution?: IInstitution;
@@ -103,8 +105,12 @@ export class ParkingComponent implements OnInit {
 
         if (res.body != null) {
           this.placesStatusTotal = res.body;
-          this.freePlaces = this.placesStatusTotal.find(i => i.status === 'DISPONIBLE')?.total;
-          this.busyPlaces = this.placesStatusTotal.find(i => i.status === 'OCUPADO')?.total;
+          this.freePlaces = this.placesStatusTotal.find(i => i.status === 'DISPONIBLE')?.total ?? 0;
+          this.busyPlaces = this.placesStatusTotal.find(i => i.status === 'OCUPADO')?.total ?? 0;
+
+          // eslint-disable-next-line no-console
+          console.log('-0-0-0-0-0-0-0');
+
           // eslint-disable-next-line no-console
           console.log(this.busyPlaces);
         }
@@ -143,6 +149,16 @@ export class ParkingComponent implements OnInit {
     });
   }
 
+  putValue(ticket: any | ''): void {
+    this.outForm.controls['ticket'].setValue(ticket);
+    this.ticketForPay = new RecordTicket();
+    this.enableButtons = false;
+
+    if (ticket !== null) {
+      this.calculateTimeParking();
+    }
+  }
+
   calculateTimeParking(): void {
     const ticket = this.outForm.get(['ticket'])!.value;
     const institutionid = this.institution!.id!;
@@ -153,7 +169,22 @@ export class ParkingComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log(res.body);
         if (res.body != null) {
-          this.ticketForPay = res.body;
+          const ticketbd = res.body;
+          if (ticketbd.status!.name === 'PRE EMITIDO') {
+            // eslint-disable-next-line no-console
+            console.log('A CONFIRMAR RESERVA');
+            const modalRef = this.modalService.open(ConfirmReserveDialogComponent, { size: 'lg', backdrop: 'static' });
+            modalRef.componentInstance.ticket = ticketbd;
+
+            // unsubscribe not needed because closed completes on modal close
+            modalRef.closed.subscribe(reason => {
+              if (reason === 'confirmed') {
+                this.loadData();
+              }
+            });
+          } else if (ticketbd.status!.name === 'EMITIDO') {
+            this.ticketForPay = ticketbd;
+          }
         }
       },
       () => {

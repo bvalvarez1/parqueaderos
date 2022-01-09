@@ -107,6 +107,9 @@ export class UserAuthorityInstitutionComponent implements OnInit {
         },
       });
     }
+
+    // eslint-disable-next-line no-console
+    console.log(data);
     this.userAuthorityInstitutions = data ?? [];
     this.ngbPaginationPage = this.page;
   }

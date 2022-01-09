@@ -4,6 +4,7 @@ import ec.loja.domain.User;
 import ec.loja.domain.UserAuthority;
 import ec.loja.repository.UserAuthorityRepository;
 import ec.loja.service.UserAuthorityService;
+import ec.loja.service.dto.JHIUserAuthorityDTO;
 import ec.loja.service.dto.UserAuthorityDTO;
 import ec.loja.service.mapper.UserAuthorityMapper;
 import java.util.Optional;
@@ -73,5 +74,10 @@ public class UserAuthorityServiceImpl implements UserAuthorityService {
     public void delete(Long id) {
         log.debug("Request to delete UserAuthority : {}", id);
         userAuthorityRepository.deleteById(id);
+    }
+
+    @Override
+    public JHIUserAuthorityDTO findByUserId(Long userid) {
+        return userAuthorityRepository.findUserAuthority(userid);
     }
 }

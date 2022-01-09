@@ -1,5 +1,6 @@
 package ec.loja.service;
 
+import ec.loja.service.dto.JHIUserAuthorityDTO;
 import ec.loja.service.dto.UserAuthorityDTO;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -47,4 +48,11 @@ public interface UserAuthorityService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     *
+     * @param userid
+     * @return
+     */
+    JHIUserAuthorityDTO findByUserId(Long userid);
 }

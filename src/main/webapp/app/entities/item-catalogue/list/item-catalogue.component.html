@@ -63,10 +63,13 @@
           <td>{{ itemCatalogue.code }}</td>
           <td>{{ itemCatalogue.description }}</td>
           <td>{{ itemCatalogue.catalogCode }}</td>
-          <td>{{ itemCatalogue.active }}</td>
+          <td>
+            <div *ngIf="itemCatalogue.active; else templateName">SI</div>
+            <ng-template #templateName> NO </ng-template>
+          </td>
           <td>
             <div *ngIf="itemCatalogue.catalogue">
-              <a [routerLink]="['/catalogue', itemCatalogue.catalogue?.id, 'view']">{{ itemCatalogue.catalogue?.id }}</a>
+              <a [routerLink]="['/catalogue', itemCatalogue.catalogue?.id, 'view']">{{ itemCatalogue.catalogue?.name }}</a>
             </div>
           </td>
           <td class="text-right">

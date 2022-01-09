@@ -10,6 +10,7 @@ import ec.loja.IntegrationTest;
 import ec.loja.domain.ItemCatalogue;
 import ec.loja.domain.TariffVehicleType;
 import ec.loja.repository.TariffVehicleTypeRepository;
+import ec.loja.service.TariffService;
 import ec.loja.service.dto.TariffVehicleTypeDTO;
 import ec.loja.service.mapper.TariffVehicleTypeMapper;
 import java.math.BigDecimal;

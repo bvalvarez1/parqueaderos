@@ -2,6 +2,8 @@ package ec.loja.web.rest;
 
 import ec.loja.repository.UserAuthorityInstitutionRepository;
 import ec.loja.service.UserAuthorityInstitutionService;
+import ec.loja.service.UserAuthorityService;
+import ec.loja.service.dto.UserAuthorityDTO;
 import ec.loja.service.dto.UserAuthorityInstitutionDTO;
 import ec.loja.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -40,13 +42,16 @@ public class UserAuthorityInstitutionResource {
     private final UserAuthorityInstitutionService userAuthorityInstitutionService;
 
     private final UserAuthorityInstitutionRepository userAuthorityInstitutionRepository;
+    private final UserAuthorityService userAuthorityService;
 
     public UserAuthorityInstitutionResource(
         UserAuthorityInstitutionService userAuthorityInstitutionService,
-        UserAuthorityInstitutionRepository userAuthorityInstitutionRepository
+        UserAuthorityInstitutionRepository userAuthorityInstitutionRepository,
+        UserAuthorityService userAuthorityService
     ) {
         this.userAuthorityInstitutionService = userAuthorityInstitutionService;
         this.userAuthorityInstitutionRepository = userAuthorityInstitutionRepository;
+        this.userAuthorityService = userAuthorityService;
     }
 
     /**
@@ -151,6 +156,11 @@ public class UserAuthorityInstitutionResource {
     public ResponseEntity<List<UserAuthorityInstitutionDTO>> getAllUserAuthorityInstitutions(Pageable pageable) {
         log.debug("REST request to get a page of UserAuthorityInstitutions");
         Page<UserAuthorityInstitutionDTO> page = userAuthorityInstitutionService.findAll(pageable);
+
+        for (UserAuthorityInstitutionDTO userAuthorityInstitutionDTO : page.getContent()) {
+            UserAuthorityDTO dto = userAuthorityService.findOne(userAuthorityInstitutionDTO.getUserAuthority().getId()).get();
+            userAuthorityInstitutionDTO.setUserAuthority(dto);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

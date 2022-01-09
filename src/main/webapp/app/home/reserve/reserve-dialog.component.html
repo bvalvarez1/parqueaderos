@@ -1,0 +1,20 @@
+<form name="reserveForm">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="reserveDialogHeading">Pre-reserva</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <p id="jhi-delete-tariffVehicleType-heading">Desea realizar una pre reserva?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      &nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+
+    <button id="jhi-confirm-delete-tariffVehicleType" type="button" (click)="preReserve()" class="btn btn-info">
+      &nbsp;<span>Pre reserva</span>
+    </button>
+  </div>
+</form>

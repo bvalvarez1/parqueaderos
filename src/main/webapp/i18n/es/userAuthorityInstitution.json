@@ -2,25 +2,25 @@
   "parqueaderosApp": {
     "userAuthorityInstitution": {
       "home": {
-        "title": "User Authority Institutions",
+        "title": "Asignación Parqueadero - Usuario",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo User Authority Institution",
-        "createOrEditLabel": "Crear o editar User Authority Institution",
-        "notFound": "Ningún User Authority Institutions encontrado"
+        "createLabel": "Crear nueva asignación",
+        "createOrEditLabel": "Crear o editar asignación",
+        "notFound": "Ningún parqueadero-usuario encontrado"
       },
-      "created": "Un nuevo User Authority Institution ha sido creado con el identificador {{ param }}",
-      "updated": "Un User Authority Institution ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un User Authority Institution ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo parqueadero-usuario ha sido creado con el identificador {{ param }}",
+      "updated": "Un parqueadero/usuario ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un parqueadero/usuario ha sido eliminado con el identificador {{ param }}",
       "delete": {
         "question": "¿Seguro que quiere eliminar User Authority Institution {{ id }}?"
       },
       "detail": {
-        "title": "User Authority Institution"
+        "title": "Asignación Parqueadero Usuario"
       },
       "id": "ID",
-      "active": "Active",
-      "institution": "Institution",
-      "userAuthority": "User Authority",
+      "active": "Activo",
+      "institution": "Parqueadero",
+      "userAuthority": "Usuario",
       "help": {
         "active": "activo"
       }

@@ -2,27 +2,27 @@
   "parqueaderosApp": {
     "tariffVehicleType": {
       "home": {
-        "title": "Tariff Vehicle Types",
+        "title": "Tarifa - tipos de vehículo",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Tariff Vehicle Type",
-        "createOrEditLabel": "Crear o editar Tariff Vehicle Type",
-        "notFound": "Ningún Tariff Vehicle Types encontrado"
+        "createLabel": "Crear nuevo tarifa por tipo de vehículo",
+        "createOrEditLabel": "Crear o editar tarifa por tipo de vehículo",
+        "notFound": "Ningún tarifa por tipo de vehículo encontrado"
       },
-      "created": "Un nuevo Tariff Vehicle Type ha sido creado con el identificador {{ param }}",
-      "updated": "Un Tariff Vehicle Type ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Tariff Vehicle Type ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo tarifa por tipo de vehículo ha sido creado con el identificador {{ param }}",
+      "updated": "Tarifa por tipo de vehículo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Tarifa por tipo de vehículo ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Tariff Vehicle Type {{ id }}?"
+        "question": "¿Seguro que quiere eliminar tarifa por tipo de vehículo{{ id }}?"
       },
       "detail": {
-        "title": "Tariff Vehicle Type"
+        "title": "Tarifa por tipo de vehículo"
       },
       "id": "ID",
-      "minValue": "Min Value",
-      "maxValue": "Max Value",
-      "value": "Value",
-      "vehicleType": "Vehicle Type",
-      "tariff": "Tariff",
+      "minValue": "Minutos min.",
+      "maxValue": "Minutos máx.",
+      "value": "Valor",
+      "vehicleType": "Tipo de vehículo",
+      "tariff": "Tarifa",
       "help": {
         "minValue": "valor minimo",
         "maxValue": "valor maximo",

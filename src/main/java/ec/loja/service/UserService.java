@@ -9,6 +9,7 @@ import ec.loja.security.AuthoritiesConstants;
 import ec.loja.security.SecurityUtils;
 import ec.loja.service.dto.AdminUserDTO;
 import ec.loja.service.dto.UserDTO;
+import ec.loja.service.mapper.UserMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -41,16 +42,20 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final UserMapper userMapper;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        UserMapper userMapper
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userMapper = userMapper;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -326,5 +331,10 @@ public class UserService {
     public Optional<UserDTO> converttoDTO(User user) {
         log.debug("Request to delete UserAuthority : {}", user);
         return Optional.of(user).map(UserDTO::new);
+    }
+
+    public Optional<UserDTO> findOne(Long userid) {
+        log.debug("Request to findOne UserDTO : {}", userid);
+        return userRepository.findById(userid).map(UserDTO::new);
     }
 }

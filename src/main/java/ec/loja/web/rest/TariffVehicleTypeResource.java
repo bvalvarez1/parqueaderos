@@ -1,7 +1,9 @@
 package ec.loja.web.rest;
 
 import ec.loja.repository.TariffVehicleTypeRepository;
+import ec.loja.service.TariffService;
 import ec.loja.service.TariffVehicleTypeService;
+import ec.loja.service.dto.TariffDTO;
 import ec.loja.service.dto.TariffVehicleTypeDTO;
 import ec.loja.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -43,12 +45,16 @@ public class TariffVehicleTypeResource {
 
     private final TariffVehicleTypeRepository tariffVehicleTypeRepository;
 
+    private final TariffService tariffService;
+
     public TariffVehicleTypeResource(
         TariffVehicleTypeService tariffVehicleTypeService,
-        TariffVehicleTypeRepository tariffVehicleTypeRepository
+        TariffVehicleTypeRepository tariffVehicleTypeRepository,
+        TariffService tariffService
     ) {
         this.tariffVehicleTypeService = tariffVehicleTypeService;
         this.tariffVehicleTypeRepository = tariffVehicleTypeRepository;
+        this.tariffService = tariffService;
     }
 
     /**
@@ -152,6 +158,11 @@ public class TariffVehicleTypeResource {
     public ResponseEntity<List<TariffVehicleTypeDTO>> getAllTariffVehicleTypes(Pageable pageable) {
         log.debug("REST request to get a page of TariffVehicleTypes");
         Page<TariffVehicleTypeDTO> page = tariffVehicleTypeService.findAll(pageable);
+        for (TariffVehicleTypeDTO tariffVehicleTypeDTO : page.getContent()) {
+            TariffDTO tariff = tariffService.findOne(tariffVehicleTypeDTO.getTariff().getId()).get();
+            System.out.println("----" + tariff.getInitialDate());
+            tariffVehicleTypeDTO.setTariff(tariff);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

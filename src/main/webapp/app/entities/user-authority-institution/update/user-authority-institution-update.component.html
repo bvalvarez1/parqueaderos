@@ -6,7 +6,7 @@
         data-cy="UserAuthorityInstitutionCreateUpdateHeading"
         jhiTranslate="parqueaderosApp.userAuthorityInstitution.home.createOrEditLabel"
       >
-        Create or edit a User Authority Institution
+        Usuario - Institución
       </h2>
 
       <div>
@@ -29,9 +29,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="parqueaderosApp.userAuthorityInstitution.institution" for="field_institution"
-            >Institution</label
-          >
+          <label class="form-control-label" for="field_institution">Parqueadero</label>
           <select class="form-control" id="field_institution" data-cy="institution" name="institution" formControlName="institution">
             <option [ngValue]="null"></option>
             <option
@@ -46,26 +44,14 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="parqueaderosApp.userAuthorityInstitution.userAuthority" for="field_userAuthority"
-            >User Authority</label
-          >
-          <select
-            class="form-control"
-            id="field_userAuthority"
-            data-cy="userAuthority"
-            name="userAuthority"
-            formControlName="userAuthority"
-          >
+          <label class="form-control-label" for="field_userAuthority">Usuario</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="
-                userAuthorityOption.id === editForm.get('userAuthority')!.value?.id
-                  ? editForm.get('userAuthority')!.value
-                  : userAuthorityOption
-              "
-              *ngFor="let userAuthorityOption of userAuthoritiesSharedCollection; trackBy: trackUserAuthorityById"
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of userSharedCollection; trackBy: trackUserById"
             >
-              {{ userAuthorityOption.id }}
+              {{ userOption.login }}
             </option>
           </select>
         </div>

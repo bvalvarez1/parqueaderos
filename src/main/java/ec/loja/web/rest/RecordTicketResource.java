@@ -2,6 +2,7 @@ package ec.loja.web.rest;
 
 import ec.loja.domain.ItemCatalogue;
 import ec.loja.domain.RecordTicket;
+import ec.loja.domain.TariffVehicleType;
 import ec.loja.domain.User;
 import ec.loja.repository.RecordTicketRepository;
 import ec.loja.service.InstitutionService;
@@ -18,6 +19,7 @@ import ec.loja.service.dto.RecordTicketDTO;
 import ec.loja.service.dto.RecordTicketRequest;
 import ec.loja.service.dto.TariffVehicleTypeDTO;
 import ec.loja.service.dto.UserDTO;
+import ec.loja.service.mapper.TariffVehicleTypeMapper;
 import ec.loja.service.mapper.UserMapper;
 import ec.loja.web.rest.errors.BadRequestAlertException;
 import java.math.BigDecimal;
@@ -32,6 +34,7 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import net.bytebuddy.asm.Advice.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,12 +64,16 @@ public class RecordTicketResource {
     private String applicationName;
 
     private String EMITTED_STATUS = "EMITTED_TICKET";
+    private String PREEMITTED_STATUS = "PREEMITTED_TICKET";
     private String PAYED_STATUS = "PAYED_TICKET";
     private String VOID_STATUS = "VOID_TICKET";
+    private String DENY_TICKET = "DENY_TICKET";
     private String TICKET_STATUS = "TICKET_STATUS";
     private String STATUS_PLACE = "STATUS_PLACE";
+
     private String FREE_PLACE = "FREE_PLACE";
     private String BUSY_PLACE = "BUSY_PLACE";
+    private String RESERVED_PLACE = "RESERVED_PLACE";
 
     private final RecordTicketService recordTicketService;
     private final RecordTicketRepository recordTicketRepository;
@@ -76,6 +83,7 @@ public class RecordTicketResource {
     private final PlaceService placeService;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final TariffVehicleTypeMapper tariffVehicleTypeMapper;
 
     public RecordTicketResource(
         RecordTicketService recordTicketService,
@@ -85,7 +93,8 @@ public class RecordTicketResource {
         UserService userService,
         InstitutionService institutionService,
         PlaceService placeService,
-        UserMapper userMapper
+        UserMapper userMapper,
+        TariffVehicleTypeMapper tariffVehicleTypeMapper
     ) {
         this.recordTicketService = recordTicketService;
         this.recordTicketRepository = recordTicketRepository;
@@ -95,6 +104,7 @@ public class RecordTicketResource {
         this.placeService = placeService;
         this.institutionService = institutionService;
         this.tariffVehicleTypeService = tariffVehicleTypeService;
+        this.tariffVehicleTypeMapper = tariffVehicleTypeMapper;
     }
 
     /**
@@ -151,8 +161,8 @@ public class RecordTicketResource {
         InstitutionDTO institution = institutionService.findOne(recordTicketDTO.getInstitution().getId()).get();
         PlaceDTO placedto = placeService.getAvailablePlace(institution.getId(), availablePlace.getId()).get();
 
-        System.out.println("=====......."+institution);
-        String ticketSerial = institutionService.serialTicket(institution.getSequencename() );
+        System.out.println("=====......." + institution);
+        String ticketSerial = institutionService.serialTicket(institution.getSequencename());
 
         ticketSerial = institution.getAcronym() + ticketSerial;
 
@@ -161,6 +171,7 @@ public class RecordTicketResource {
         recordTicketDTO.setStatus(emittedStatus);
         recordTicketDTO.setPlaceid(placedto);
         recordTicketDTO.setSequential(ticketSerial);
+        recordTicketDTO.setInstitution(institution);
 
         RecordTicketDTO result = recordTicketService.save(recordTicketDTO);
 
@@ -171,6 +182,120 @@ public class RecordTicketResource {
         return ResponseEntity
             .created(new URI("/api/record-tickets-parking/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/record-tickets/prereserve")
+    public ResponseEntity<RecordTicketDTO> makePreReservation(@Valid @RequestBody Long institutionId) throws URISyntaxException {
+        log.debug("REST request to save makePreReservation institutionid : {}", institutionId);
+
+        InstitutionDTO institution = institutionService.findOne(institutionId).get();
+        //fijar datos por defecto
+        final Optional<User> isUser = userService.getUserWithAuthorities();
+        if (!isUser.isPresent()) {
+            log.error("User is not logged in");
+        }
+
+        Optional<UserDTO> userdto = isUser.map(userMapper::toDtoId);
+        ItemCatalogueDTO preemittedStatus = itemCatalogService.findByCodeAndCatalog(PREEMITTED_STATUS, TICKET_STATUS).get();
+        ItemCatalogueDTO availablePlace = itemCatalogService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE).get();
+        ItemCatalogueDTO reservedPlace = itemCatalogService.findByCodeAndCatalog(RESERVED_PLACE, STATUS_PLACE).get();
+        PlaceDTO placedto = placeService.getAvailablePlace(institution.getId(), availablePlace.getId()).get();
+        String ticketSerial = institutionService.serialTicket(institution.getSequencename());
+        ticketSerial = institution.getAcronym() + ticketSerial;
+
+        RecordTicketDTO recordTicketDTO = new RecordTicketDTO();
+        recordTicketDTO.setInitDate(Instant.now());
+        //recordTicketDTO.setEmitter(userdto.get());
+        //fijar otro valor para prereserva
+        recordTicketDTO.setStatus(preemittedStatus);
+        recordTicketDTO.setPlaceid(placedto);
+        recordTicketDTO.setSequential(ticketSerial);
+
+        System.out.println("====================++>" + placedto.getNumber());
+        recordTicketDTO.setSequential(""); //vacio por defecto
+        recordTicketDTO.setInstitution(institution);
+        //generar una tarifa por defecto para el ticket
+        List<TariffVehicleType> tariffs = tariffVehicleTypeService.getTarrifVehicleByInstitution(institutionId, LocalDate.now());
+        if (!tariffs.isEmpty()) {
+            TariffVehicleTypeDTO tarifDTO = this.tariffVehicleTypeMapper.toDto(tariffs.get(0));
+            recordTicketDTO.setTariffVehicle(tarifDTO);
+        }
+
+        RecordTicketDTO result = recordTicketService.save(recordTicketDTO);
+
+        //cambiar el estado al lugar
+        placedto.setStatus(reservedPlace);
+        placeService.save(placedto);
+        return ResponseEntity
+            .created(new URI("/api/record-tickets-prereserve/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/record-tickets/confirmReserve")
+    public ResponseEntity<RecordTicketDTO> confirmReservation(@Valid @RequestBody RecordTicketDTO request) throws URISyntaxException {
+        log.debug("REST request to save confirmReservation: {}", request);
+
+        //fijar datos por defecto
+        final Optional<User> isUser = userService.getUserWithAuthorities();
+        if (!isUser.isPresent()) {
+            log.error("User is not logged in");
+        }
+
+        Optional<UserDTO> userdto = isUser.map(userMapper::toDtoId);
+        InstitutionDTO institution = institutionService.findOne(request.getInstitution().getId()).get();
+        String ticketSerial = institutionService.serialTicket(institution.getSequencename());
+        ticketSerial = institution.getAcronym() + ticketSerial;
+        ItemCatalogueDTO emittedStatus = itemCatalogService.findByCodeAndCatalog(EMITTED_STATUS, TICKET_STATUS).get();
+        request.setInitDate(Instant.now()); //fijar la fecha desde que se confirma
+        request.setEndDate(null);
+        request.setParkingTime(null);
+        request.setEmitter(userdto.get());
+        request.setStatus(emittedStatus);
+        request.setSequential(ticketSerial);
+
+        RecordTicketDTO result = recordTicketService.save(request);
+
+        //cambiar el estado al lugar
+        ItemCatalogueDTO busyPlace = itemCatalogService.findByCodeAndCatalog(BUSY_PLACE, STATUS_PLACE).get();
+        PlaceDTO placedto = request.getPlaceid();
+        placedto.setStatus(busyPlace);
+        placeService.save(placedto);
+
+        return ResponseEntity
+            .created(new URI("/api/confirmReserve/" + result.getId()))
+            .headers(HeaderUtil.createAlert(applicationName, "Se ha confirmado la reserva puesto: ", placedto.getNumber()))
+            .body(result);
+    }
+
+    @PostMapping("/record-tickets/denyReserve")
+    public ResponseEntity<RecordTicketDTO> denyReservation(@Valid @RequestBody RecordTicketDTO request) throws URISyntaxException {
+        log.debug("REST request to save denyReservation: {}", request);
+
+        //fijar datos por defecto
+        final Optional<User> isUser = userService.getUserWithAuthorities();
+        if (!isUser.isPresent()) {
+            log.error("User is not logged in");
+        }
+
+        Optional<UserDTO> userdto = isUser.map(userMapper::toDtoId);
+        ItemCatalogueDTO denyStatus = itemCatalogService.findByCodeAndCatalog(DENY_TICKET, TICKET_STATUS).get();
+        request.setInitDate(Instant.now()); //fijar la fecha desde que se confirma
+        request.setEmitter(userdto.get());
+        request.setStatus(denyStatus);
+
+        RecordTicketDTO result = recordTicketService.save(request);
+
+        //cambiar el estado al lugar
+        ItemCatalogueDTO freePlace = itemCatalogService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE).get();
+        PlaceDTO placedto = request.getPlaceid();
+        placedto.setStatus(freePlace);
+        placeService.save(placedto);
+
+        return ResponseEntity
+            .created(new URI("/api/denyReserve/" + result.getId()))
+            .headers(HeaderUtil.createAlert(applicationName, "Se ha denegado la reserva, puesto: ", placedto.getNumber()))
             .body(result);
     }
 
@@ -235,7 +360,7 @@ public class RecordTicketResource {
 
         subtotal = subtotal.add(totalDay).add(totalHour).add(totalMinutes);
         subtotal = subtotal.setScale(2, RoundingMode.HALF_UP);
-        taxes = subtotal.divide(iva,2, RoundingMode.HALF_UP);
+        taxes = subtotal.divide(iva, 2, RoundingMode.HALF_UP);
         taxes = taxes.setScale(2, RoundingMode.HALF_UP);
 
         BigDecimal total = subtotal.add(taxes);
@@ -251,7 +376,7 @@ public class RecordTicketResource {
     }
 
     @PostMapping("/record-tickets/payTicket")
-    public ResponseEntity<RecordTicketDTO> payTicket(@Valid @RequestBody  RecordTicketDTO request) {
+    public ResponseEntity<RecordTicketDTO> payTicket(@Valid @RequestBody RecordTicketDTO request) {
         log.debug("REST request to payTicket RecordTicket : {}", request);
 
         if (request.getId() == null) {
@@ -264,16 +389,16 @@ public class RecordTicketResource {
 
         final User user = isUser.get();
         Optional<ItemCatalogueDTO> payedStatus = itemCatalogService.findByCodeAndCatalog(PAYED_STATUS, TICKET_STATUS);
-        
-        //al ticket fijarle los valores de cobrador, fecha de cobro 
-        request.setCollector(userService.converttoDTO(user).get()); 
+
+        //al ticket fijarle los valores de cobrador, fecha de cobro
+        request.setCollector(userService.converttoDTO(user).get());
         request.setEndDate(Instant.now());
         request.setStatus(payedStatus.get());
-        
+
         RecordTicketDTO result = recordTicketService.save(request);
 
         //liberar el lugar o place ocupado
-        Optional<PlaceDTO> placedto  = placeService.findOne(request.getPlaceid().getId());
+        Optional<PlaceDTO> placedto = placeService.findOne(request.getPlaceid().getId());
         PlaceDTO placeDTO = placedto.get();
         Optional<ItemCatalogueDTO> freeStatus = itemCatalogService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE);
         placeDTO.setStatus(freeStatus.get());
@@ -398,8 +523,6 @@ public class RecordTicketResource {
             .build();
     }
 
-
-    
     @PatchMapping(value = "/record-tickets/cancel/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<RecordTicketDTO> cancelRecordTicket(
         @PathVariable(value = "id", required = false) final Long id,
@@ -409,7 +532,7 @@ public class RecordTicketResource {
         if (id == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-         
+
         if (!recordTicketRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
@@ -421,7 +544,7 @@ public class RecordTicketResource {
         Optional<RecordTicketDTO> result = recordTicketService.partialUpdate(recordDB);
 
         //desocupar el espacio de parqueamiento
-        PlaceDTO placedto  = placeService.findOne(recordDB.getPlaceid().getId()).get();
+        PlaceDTO placedto = placeService.findOne(recordDB.getPlaceid().getId()).get();
         Optional<ItemCatalogueDTO> freeStatus = itemCatalogService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE);
         placedto.setStatus(freeStatus.get());
         placeService.save(placedto);

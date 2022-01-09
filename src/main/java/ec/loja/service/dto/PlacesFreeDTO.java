@@ -3,7 +3,7 @@ package ec.loja.service.dto;
 import java.math.BigDecimal;
 
 public interface PlacesFreeDTO {
-    Long getPlaceId();
+    Long getId();
 
     String getName();
 

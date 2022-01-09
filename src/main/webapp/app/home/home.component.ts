@@ -8,6 +8,8 @@ import { Account } from 'app/core/auth/account.model';
 import { InstitutionService } from 'app/entities/institution/service/institution.service';
 import { IFreePlaces } from 'app/entities/freePlaces/freeplaces.model';
 import { HttpResponse } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ReserveDialogComponent } from './reserve/reserve-dialog.component';
 @Component({
   selector: 'jhi-home',
   templateUrl: './home.component.html',
@@ -22,7 +24,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
 
-  constructor(private accountService: AccountService, private institutionService: InstitutionService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private institutionService: InstitutionService,
+    private router: Router,
+    protected modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.accountService
@@ -31,6 +38,23 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe(account => (this.account = account));
 
     this.getLocation();
+  }
+
+  /**
+   * Anular un ticket
+   */
+  preReserve(id: number): void {
+    const modalRef = this.modalService.open(ReserveDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.institutionId = id;
+
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'prereserved') {
+        //this.loadData();
+        // eslint-disable-next-line no-console
+        console.log('PRE RESERVADO');
+      }
+    });
   }
 
   getLocation(): void {
@@ -52,8 +76,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           (res: HttpResponse<IFreePlaces[]>) => {
             if (res.body != null) {
               this.freePlaces = res.body;
-              // eslint-disable-next-line no-console
-              console.log(this.freePlaces);
             }
           },
           error => {

@@ -1,7 +1,9 @@
 package ec.loja.web.rest;
 
 import ec.loja.repository.ItemCatalogueRepository;
+import ec.loja.service.CatalogueService;
 import ec.loja.service.ItemCatalogueService;
+import ec.loja.service.dto.CatalogueDTO;
 import ec.loja.service.dto.ItemCatalogueDTO;
 import ec.loja.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -43,9 +45,16 @@ public class ItemCatalogueResource {
 
     private final ItemCatalogueRepository itemCatalogueRepository;
 
-    public ItemCatalogueResource(ItemCatalogueService itemCatalogueService, ItemCatalogueRepository itemCatalogueRepository) {
+    private final CatalogueService catalogueService;
+
+    public ItemCatalogueResource(
+        ItemCatalogueService itemCatalogueService,
+        ItemCatalogueRepository itemCatalogueRepository,
+        CatalogueService catalogueService
+    ) {
         this.itemCatalogueService = itemCatalogueService;
         this.itemCatalogueRepository = itemCatalogueRepository;
+        this.catalogueService = catalogueService;
     }
 
     /**
@@ -149,6 +158,10 @@ public class ItemCatalogueResource {
     public ResponseEntity<List<ItemCatalogueDTO>> getAllItemCatalogues(Pageable pageable) {
         log.debug("REST request to get a page of ItemCatalogues");
         Page<ItemCatalogueDTO> page = itemCatalogueService.findAll(pageable);
+        for (ItemCatalogueDTO itemCatalogueDTO : page.getContent()) {
+            CatalogueDTO catalog = catalogueService.findOne(itemCatalogueDTO.getCatalogue().getId()).get();
+            itemCatalogueDTO.setCatalogue(catalog);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

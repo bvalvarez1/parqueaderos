@@ -2,20 +2,20 @@
   "parqueaderosApp": {
     "catalogue": {
       "home": {
-        "title": "Catalogues",
+        "title": "Catálogos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Catalogue",
-        "createOrEditLabel": "Crear o editar Catalogue",
-        "notFound": "Ningún Catalogues encontrado"
+        "createLabel": "Crear nuevo catálogo",
+        "createOrEditLabel": "Crear o editar catálogo",
+        "notFound": "Ningún catálogo encontrado"
       },
-      "created": "Un nuevo Catalogue ha sido creado con el identificador {{ param }}",
-      "updated": "Un Catalogue ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Catalogue ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo catálogo ha sido creado con el identificador {{ param }}",
+      "updated": "Un catálogo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un catálogo ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Catalogue {{ id }}?"
+        "question": "¿Seguro que quiere eliminar catálogo {{ id }}?"
       },
       "detail": {
-        "title": "Catalogue"
+        "title": "Catálogo"
       },
       "id": "ID",
       "name": "Name",
@@ -24,9 +24,9 @@
       "active": "Active",
       "items": "Items",
       "help": {
-        "name": "nombre de catalogo",
-        "code": "codigo de catalogo-unico",
-        "description": "descripcion de catalogo",
+        "name": "nombre de catálogo",
+        "code": "codigo de catálogo-único",
+        "description": "Descripción de catalogo",
         "active": "activo"
       }
     }

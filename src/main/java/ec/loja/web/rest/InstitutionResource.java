@@ -276,7 +276,7 @@ public class InstitutionResource {
     public ResponseEntity<List<PlacesFreeDTO>> getFreePlacesByUserPosition(@RequestBody PositionDTO position) throws URISyntaxException {
         log.debug("REST request getFreePlacesByUserPosition: {} {} ", position.getLatitude(), position.getLongitude());
 
-        BigDecimal radius = new BigDecimal("0.01");
+        BigDecimal radius = new BigDecimal("0.05");
         BigDecimal latitudeStart = BigDecimal.ZERO;
         BigDecimal latitudeEnd = BigDecimal.ZERO;
         BigDecimal longitudeStart = BigDecimal.ZERO;
@@ -289,6 +289,12 @@ public class InstitutionResource {
         longitudeEnd = position.getLongitude().add(radius);
 
         Optional<ItemCatalogueDTO> freePlace = itemCatalogueService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE);
+
+        System.out.println("latitude start=" + latitudeStart);
+        System.out.println("latitude end=" + latitudeEnd);
+        System.out.println("longitudeStart=" + longitudeStart);
+        System.out.println("longitudeEnd=" + longitudeEnd);
+        System.out.println("FREE_PLACE=" + freePlace.get().getCode());
 
         List<PlacesFreeDTO> places = institutionRepository.getFreePlaces(
             latitudeStart,

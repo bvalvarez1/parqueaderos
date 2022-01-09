@@ -51,7 +51,10 @@
           <td>
             <a [routerLink]="['/user-authority-institution', userAuthorityInstitution.id, 'view']">{{ userAuthorityInstitution.id }}</a>
           </td>
-          <td>{{ userAuthorityInstitution.active }}</td>
+          <td>
+            <div *ngIf="userAuthorityInstitution.active; else templateName">SI</div>
+            <ng-template #templateName> NO </ng-template>
+          </td>
           <td>
             <div *ngIf="userAuthorityInstitution.institution">
               <a [routerLink]="['/institution', userAuthorityInstitution.institution?.id, 'view']">{{
@@ -62,7 +65,7 @@
           <td>
             <div *ngIf="userAuthorityInstitution.userAuthority">
               <a [routerLink]="['/user-authority', userAuthorityInstitution.userAuthority?.id, 'view']">{{
-                userAuthorityInstitution.userAuthority?.id
+                userAuthorityInstitution.userAuthority?.user?.login!
               }}</a>
             </div>
           </td>

@@ -2,34 +2,34 @@
   "parqueaderosApp": {
     "itemCatalogue": {
       "home": {
-        "title": "Item Catalogues",
+        "title": "Ítem",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Item Catalogue",
-        "createOrEditLabel": "Crear o editar Item Catalogue",
-        "notFound": "Ningún Item Catalogues encontrado"
+        "createLabel": "Crear nuevo ítem",
+        "createOrEditLabel": "Crear o editar ítem",
+        "notFound": "Ningún ítem encontrado"
       },
-      "created": "Un nuevo Item Catalogue ha sido creado con el identificador {{ param }}",
-      "updated": "Un Item Catalogue ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Item Catalogue ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo ítem ha sido creado con el identificador {{ param }}",
+      "updated": "Un ítem ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un ítem ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Item Catalogue {{ id }}?"
+        "question": "¿Seguro que quiere eliminar ítem  {{ id }}?"
       },
       "detail": {
-        "title": "Item Catalogue"
+        "title": "Ítems"
       },
       "id": "ID",
-      "name": "Name",
-      "code": "Code",
-      "description": "Description",
-      "catalogCode": "Catalog Code",
-      "active": "Active",
-      "catalogue": "Catalogue",
+      "name": "Nombre",
+      "code": "Código",
+      "description": "Descripción",
+      "catalogCode": "Código catálogo",
+      "active": "Activo",
+      "catalogue": "Catálogo",
       "help": {
-        "name": "nombre de itemcatalogo",
-        "code": "codigo de itemcatalogo",
-        "description": "descripcion de itemcatalogo",
-        "catalogCode": "codigo de catalogo",
-        "active": "activo"
+        "name": "Nombre de ítem'",
+        "code": "Código de ítem'",
+        "description": "Descripción de ítem'",
+        "catalogCode": "Código de Catálogo",
+        "active": "Activo"
       }
     }
   }

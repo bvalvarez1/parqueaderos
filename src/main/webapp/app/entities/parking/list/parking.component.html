@@ -31,8 +31,31 @@
               >
             </button>
           </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="placesFree indicator"></div>
+              <div class="nameIndicator">Libre</div>
+            </div>
+            <div class="col-md-4">
+              <div class="placesBusy indicator"></div>
+              <div class="nameIndicator">Ocupado</div>
+            </div>
+            <div class="col-md-4">
+              <div class="placeReserved indicator"></div>
+              <div class="nameIndicator">Reservado</div>
+            </div>
+          </div>
           <div class="row" *ngIf="placesTickets && placesTickets.length > 0">
-            <div *ngFor="let placeTicket of placesTickets" [ngClass]="placeTicket.placeCode_ == 'FREE_PLACE' ? 'placesFree' : 'placesBusy'">
+            <div
+              *ngFor="let placeTicket of placesTickets"
+              placeReserved
+              [ngClass]="{
+                placesFree: placeTicket.placeCode_ == 'FREE_PLACE',
+                placesBusy: placeTicket.placeCode_ == 'BUSY_PLACE',
+                placeReserved: placeTicket.placeCode_ == 'RESERVED_PLACE'
+              }"
+              (click)="putValue(placeTicket.sequential_)"
+            >
               <div>{{ placeTicket.number_ }}</div>
               <div *ngIf="placeTicket.placeCode_ == 'BUSY_PLACE'" class="numberTicket">{{ placeTicket.sequential_ }}</div>
             </div>
@@ -79,9 +102,9 @@
                 </button>
               </div>
             </div>
-
+            <div class="row space"></div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3 labelInfo">
                 <label
                   class="form-control-label label-medium"
                   jhiTranslate="parqueaderosApp.parking.home.place"
@@ -95,7 +118,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3 labelInfo">
                 <label
                   class="form-control-label label-medium"
                   jhiTranslate="parqueaderosApp.parking.home.enterdate"
@@ -110,7 +133,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3 labelInfo">
                 <label
                   class="form-control-label label-medium"
                   jhiTranslate="parqueaderosApp.parking.home.outdate"
@@ -125,7 +148,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3 labelInfo">
                 <label
                   class="form-control-label label-medium"
                   jhiTranslate="parqueaderosApp.parking.home.parkingTime"
@@ -157,7 +180,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3 form-control-label label-medium">Valor por hora</div>
+              <div class="col-md-3 form-control-label label-medium labelInfo">Valor por hora</div>
               <div class="col-md-9 text-left">$ {{ ticketForPay?.tariffVehicle?.value }}</div>
             </div>
           </div>
@@ -176,12 +199,7 @@
                   <span>Anulación</span>
                 </button>
               </div>
-              <div class="col-md-4">
-                <button class="btn btn-info btn-sm col-md-12" [disabled]="!enableButtons">
-                  <fa-icon icon="print"></fa-icon>
-                  <span>Imprimir</span>
-                </button>
-              </div>
+              <div class="col-md-4"></div>
             </div>
             <div class="row">
               <div class="col-md-4 labelValues">Subtotal</div>
