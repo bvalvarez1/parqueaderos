@@ -19,6 +19,7 @@ export interface IRecordTicket {
   placeid?: IPlace | null;
   emitter?: IUser | null;
   collector?: IUser | null;
+  reserver?: IUser | null;
   status?: IItemCatalogue;
   tariffVehicle?: ITariffVehicleType;
   institution?: IInstitution;
@@ -43,6 +44,7 @@ export class RecordTicket implements IRecordTicket {
     public placeid?: IPlace | null,
     public emitter?: IUser | null,
     public collector?: IUser | null,
+    public reserver?: IUser | null,
     public status?: IItemCatalogue,
     public tariffVehicle?: ITariffVehicleType,
     public institution?: IInstitution,

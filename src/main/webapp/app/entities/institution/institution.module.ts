@@ -5,9 +5,10 @@ import { InstitutionDetailComponent } from './detail/institution-detail.componen
 import { InstitutionUpdateComponent } from './update/institution-update.component';
 import { InstitutionDeleteDialogComponent } from './delete/institution-delete-dialog.component';
 import { InstitutionRoutingModule } from './route/institution-routing.module';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
-  imports: [SharedModule, InstitutionRoutingModule],
+  imports: [SharedModule, InstitutionRoutingModule, AgmCoreModule],
   declarations: [InstitutionComponent, InstitutionDetailComponent, InstitutionUpdateComponent, InstitutionDeleteDialogComponent],
   entryComponents: [InstitutionDeleteDialogComponent],
 })

@@ -21,6 +21,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   lat: any;
   lng: any;
   freePlaces: IFreePlaces[] | null = null;
+  labelOptions = {
+    fontFamily: '',
+    fontSize: '10px',
+    fontWeight: 'bold',
+    letterSpacing: '0.5px',
+    text: 'Tu posicion',
+  };
 
   private readonly destroy$ = new Subject<void>();
 

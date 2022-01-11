@@ -33,29 +33,17 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="name">
-            <span jhiTranslate="parqueaderosApp.institution.name">Name</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="address">
-            <span jhiTranslate="parqueaderosApp.institution.address">Address</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="placesNumber">
-            <span jhiTranslate="parqueaderosApp.institution.placesNumber">Places Number</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="ruc">
-            <span jhiTranslate="parqueaderosApp.institution.ruc">Ruc</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="latitude">
-            <span jhiTranslate="parqueaderosApp.institution.latitude">Latitude</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" jhiSortBy="longitude">
-            <span jhiTranslate="parqueaderosApp.institution.longitude">Longitude</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" jhiSortBy="name"><span>Nombre</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="address"><span>Dirección</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="placesNumber"><span>Espacios de parqueo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ruc"><span>RUC</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="latitude"><span>Latitud</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="longitude"><span>Longitud</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="acronym">
-            <span jhiTranslate="parqueaderosApp.institution.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="parqueaderosApp.institution.acronym">Siglas para tickets</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="sequencename">
-            <span jhiTranslate="parqueaderosApp.institution.sequencename">Sequencename</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="parqueaderosApp.institution.sequencename">Nombre de secuencia</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="canton.name">
             <span jhiTranslate="parqueaderosApp.institution.canton">Canton</span> <fa-icon icon="sort"></fa-icon>

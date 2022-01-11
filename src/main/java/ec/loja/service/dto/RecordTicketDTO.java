@@ -77,6 +77,8 @@ public class RecordTicketDTO implements Serializable {
 
     private UserDTO collector;
 
+    private UserDTO reserver;
+
     private ItemCatalogueDTO status;
 
     private TariffVehicleTypeDTO tariffVehicle;
@@ -269,6 +271,14 @@ public class RecordTicketDTO implements Serializable {
         return Objects.hash(this.id);
     }
 
+    public UserDTO getReserver() {
+        return reserver;
+    }
+
+    public void setReserver(UserDTO reserver) {
+        this.reserver = reserver;
+    }
+
     // prettier-ignore
     @Override
     public String toString() {
@@ -286,6 +296,7 @@ public class RecordTicketDTO implements Serializable {
             ", placeid=" + getPlaceid() +
             ", emitter=" + getEmitter() +
             ", collector=" + getCollector() +
+            ", reserver=" + getReserver() +
             ", status=" + getStatus() +
             ", tariffVehicle=" + getTariffVehicle() +
             ", institution=" + getInstitution() +

@@ -57,7 +57,12 @@
               (click)="putValue(placeTicket.sequential_)"
             >
               <div>{{ placeTicket.number_ }}</div>
-              <div *ngIf="placeTicket.placeCode_ == 'BUSY_PLACE'" class="numberTicket">{{ placeTicket.sequential_ }}</div>
+              <div *ngIf="placeTicket.placeCode_ == 'BUSY_PLACE'; else templateName" class="numberTicket">
+                {{ placeTicket.sequential_ }}
+              </div>
+              <ng-template #templateName>
+                <div *ngIf="placeTicket.placeCode_ == 'RESERVED_PLACE'" class="numberTicket">{{ placeTicket.sequential_ }}</div>
+              </ng-template>
             </div>
           </div>
         </div>

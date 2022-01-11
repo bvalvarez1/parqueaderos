@@ -9,15 +9,24 @@ import { IInstitution, Institution } from '../institution.model';
 import { InstitutionService } from '../service/institution.service';
 import { IItemCatalogue } from 'app/entities/item-catalogue/item-catalogue.model';
 import { ItemCatalogueService } from 'app/entities/item-catalogue/service/item-catalogue.service';
-
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 @Component({
   selector: 'jhi-institution-update',
+  styles: [
+    `
+      agm-map {
+        height: 300px;
+      }
+    `,
+  ],
   templateUrl: './institution-update.component.html',
 })
 export class InstitutionUpdateComponent implements OnInit {
   isSaving = false;
 
   itemCataloguesSharedCollection: IItemCatalogue[] = [];
+  latitude = -3.9980144;
+  longitude = -79.2053783;
 
   editForm = this.fb.group({
     id: [],
@@ -67,6 +76,13 @@ export class InstitutionUpdateComponent implements OnInit {
 
   trackItemCatalogueById(index: number, item: IItemCatalogue): number {
     return item.id!;
+  }
+
+  markerDragEnd($event: MouseEvent): void {
+    //poner los valores en el formulario
+    this.editForm.controls['latitude'].setValue($event.coords.lat);
+    this.editForm.controls['longitude'].setValue($event.coords.lng);
+    //this.getAddress(this.latitude, this.longitude);
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IInstitution>>): void {

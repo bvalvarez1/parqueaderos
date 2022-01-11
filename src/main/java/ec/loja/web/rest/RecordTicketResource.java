@@ -150,10 +150,8 @@ public class RecordTicketResource {
             log.error("User is not logged in");
         }
 
-        final User user = isUser.get();
+        Optional<UserDTO> userdto = userService.findOne(isUser.get().getId());
 
-        Optional<User> opt = Optional.ofNullable(user);
-        Optional<UserDTO> userdto = opt.map(userMapper::toDtoId);
         ItemCatalogueDTO emittedStatus = itemCatalogService.findByCodeAndCatalog(EMITTED_STATUS, TICKET_STATUS).get();
         ItemCatalogueDTO availablePlace = itemCatalogService.findByCodeAndCatalog(FREE_PLACE, STATUS_PLACE).get();
         ItemCatalogueDTO busyPlace = itemCatalogService.findByCodeAndCatalog(BUSY_PLACE, STATUS_PLACE).get();
@@ -168,11 +166,15 @@ public class RecordTicketResource {
 
         recordTicketDTO.setInitDate(Instant.now());
         recordTicketDTO.setEmitter(userdto.get());
+        //recordTicketDTO.setCollector(userdto.get());
+        recordTicketDTO.setReserver(userdto.get());
         recordTicketDTO.setStatus(emittedStatus);
         recordTicketDTO.setPlaceid(placedto);
         recordTicketDTO.setSequential(ticketSerial);
         recordTicketDTO.setInstitution(institution);
 
+        System.out.println(recordTicketDTO.toString());
+        //System.exit(1);
         RecordTicketDTO result = recordTicketService.save(recordTicketDTO);
 
         //cambiar el estado al lugar
@@ -211,9 +213,8 @@ public class RecordTicketResource {
         recordTicketDTO.setStatus(preemittedStatus);
         recordTicketDTO.setPlaceid(placedto);
         recordTicketDTO.setSequential(ticketSerial);
+        recordTicketDTO.setReserver(userdto.get());
 
-        System.out.println("====================++>" + placedto.getNumber());
-        recordTicketDTO.setSequential(""); //vacio por defecto
         recordTicketDTO.setInstitution(institution);
         //generar una tarifa por defecto para el ticket
         List<TariffVehicleType> tariffs = tariffVehicleTypeService.getTarrifVehicleByInstitution(institutionId, LocalDate.now());
@@ -244,16 +245,12 @@ public class RecordTicketResource {
         }
 
         Optional<UserDTO> userdto = isUser.map(userMapper::toDtoId);
-        InstitutionDTO institution = institutionService.findOne(request.getInstitution().getId()).get();
-        String ticketSerial = institutionService.serialTicket(institution.getSequencename());
-        ticketSerial = institution.getAcronym() + ticketSerial;
         ItemCatalogueDTO emittedStatus = itemCatalogService.findByCodeAndCatalog(EMITTED_STATUS, TICKET_STATUS).get();
         request.setInitDate(Instant.now()); //fijar la fecha desde que se confirma
         request.setEndDate(null);
         request.setParkingTime(null);
         request.setEmitter(userdto.get());
         request.setStatus(emittedStatus);
-        request.setSequential(ticketSerial);
 
         RecordTicketDTO result = recordTicketService.save(request);
 

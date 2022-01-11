@@ -2,14 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { createRequestOption } from 'app/core/request/request-util';
-import { ITariffVehicleType, getTariffVehicleTypeIdentifier } from '../../entities/tariff-vehicle-type/tariff-vehicle-type.model';
 import { IRecordTicket } from 'app/entities/record-ticket/record-ticket.model';
 
 export type EntityResponseType = HttpResponse<IRecordTicket>;
-export type EntityArrayResponseType = HttpResponse<ITariffVehicleType[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ReserveService {

@@ -93,6 +93,10 @@ public class RecordTicket implements Serializable {
     @JoinColumn(unique = true)
     private User collector;
 
+    @OneToOne
+    @JoinColumn
+    private User reserver;
+
     /**
      * RecordTicket status
      */
@@ -294,6 +298,19 @@ public class RecordTicket implements Serializable {
 
     public void setStatus(ItemCatalogue itemCatalogue) {
         this.status = itemCatalogue;
+    }
+
+    public User getReserver() {
+        return reserver;
+    }
+
+    public void setReserver(User reserver) {
+        this.reserver = reserver;
+    }
+
+    public RecordTicket reserver(User user) {
+        this.setReserver(reserver);
+        return this;
     }
 
     public RecordTicket status(ItemCatalogue itemCatalogue) {

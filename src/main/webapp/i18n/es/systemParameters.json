@@ -2,24 +2,24 @@
   "parqueaderosApp": {
     "systemParameters": {
       "home": {
-        "title": "System Parameters",
+        "title": "Parámetros de sistema",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo System Parameters",
-        "createOrEditLabel": "Crear o editar System Parameters",
-        "notFound": "Ningún System Parameters encontrado"
+        "createLabel": "Crear nuevo parámetro de sistema",
+        "createOrEditLabel": "Crear o editar parámetro de sistema",
+        "notFound": "Ningún parámetro encontrado"
       },
-      "created": "Un nuevo System Parameters ha sido creado con el identificador {{ param }}",
-      "updated": "Un System Parameters ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un System Parameters ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo parámetro de sistema ha sido creado con el identificador {{ param }}",
+      "updated": "Un parámetro de sistema ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un parámetro de sistema ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar System Parameters {{ id }}?"
+        "question": "¿Seguro que quiere eliminar parámetro de sistema{{ id }}?"
       },
       "detail": {
-        "title": "System Parameters"
+        "title": "Parámetro de sistema"
       },
       "id": "ID",
-      "name": "Name",
-      "code": "Code",
+      "name": "Nombre",
+      "code": "Código",
       "clase": "Clase",
       "help": {
         "name": "nombre",

@@ -42,7 +42,7 @@
           </span>
         </a>
         <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="catalogue"
@@ -51,10 +51,10 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.catalogue">Catalogue</span>
+              <span>Catálogos</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="item-catalogue"
@@ -63,10 +63,10 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.itemCatalogue">Item Catalogue</span>
+              <span>Ítems</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="institution"
@@ -75,10 +75,10 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.institution">Institution</span>
+              <span>Parqueaderos</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="system-parameters"
@@ -87,10 +87,10 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.systemParameters">System Parameters</span>
+              <span>Parámetros de sistema</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="system-parameter-institution"
@@ -99,10 +99,10 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.systemParameterInstitution">System Parameter Institution</span>
+              <span>Parámetros de sistema por parqueadero</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="person"
@@ -111,70 +111,11 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.person">Person</span>
+              <span>Persona</span>
             </a>
           </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="functionality"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.functionality">Functionality</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="authority-functionality"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.authorityFunctionality">Authority Functionality</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="contract"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.contract">Contract</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="horary"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.horary">Horary</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="record"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.record">Record</span>
-            </a>
-          </li>
-          <li>
+
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="tariff"
@@ -183,10 +124,10 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.tariff">Tariff</span>
+              <span>Tarifas de cobro</span>
             </a>
           </li>
-          <li>
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="tariff-vehicle-type"
@@ -195,22 +136,11 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.tariffVehicleType">Tariff Vehicle Type</span>
+              <span>Tarifas por tipo de vehículo</span>
             </a>
           </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="user-authority"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.userAuthority">User Authority</span>
-            </a>
-          </li>
-          <li>
+
+          <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
               routerLink="user-authority-institution"
@@ -219,39 +149,17 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.userAuthorityInstitution">User Authority Institution</span>
+              <span>Parqueaderos - usuarios</span>
             </a>
           </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="receipt"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.receipt">Receipt</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              routerLink="record-ticket"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.recordTicket">Record Ticket</span>
-            </a>
-          </li>
-          <li *ngIf="openAPIEnabled">
+
+          <li *jhiHasAnyAuthority="'ROLE_CASHIER'">
             <a class="dropdown-item" routerLink="parking" routerLinkActive="active" (click)="collapseNavbar()">
               <fa-icon icon="book" [fixedWidth]="true"></fa-icon>
-              <span>Parqueadero</span>
+              <span>Parqueadero-Cobro</span>
             </a>
           </li>
+          <!--
           <li>
             <a
               class="dropdown-item"
@@ -261,10 +169,10 @@
               (click)="collapseNavbar()"
             >
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-              <span jhiTranslate="global.menu.entities.place">Place</span>
+              <span jhiTranslate="global.menu.entities.place">Espacios de parqueadero</span>
             </a>
           </li>
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+         jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
         </ul>
       </li>
       <li

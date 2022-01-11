@@ -45,6 +45,7 @@ export class ParkingComponent implements OnInit {
   ngbPaginationPage = 1;
   ticketForPay?: IRecordTicket;
   enableButtons?: boolean | false;
+  sequentialReserved?: string;
 
   outForm = this.fb.group({
     ticket: [null, [Validators.required]],
@@ -170,9 +171,9 @@ export class ParkingComponent implements OnInit {
         console.log(res.body);
         if (res.body != null) {
           const ticketbd = res.body;
+
           if (ticketbd.status!.name === 'PRE EMITIDO') {
-            // eslint-disable-next-line no-console
-            console.log('A CONFIRMAR RESERVA');
+            //abrir modal
             const modalRef = this.modalService.open(ConfirmReserveDialogComponent, { size: 'lg', backdrop: 'static' });
             modalRef.componentInstance.ticket = ticketbd;
 
